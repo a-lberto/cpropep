@@ -1,3 +1,3 @@
-LIB    = -lgpcp
+LIB    = -lgpcp -lm
 PROG   = profiler
-OBJS   = profiler.o
+OBJS   = profiler.o parser.o
