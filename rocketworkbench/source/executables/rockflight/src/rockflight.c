@@ -118,8 +118,6 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
 
   int n;
   
-  /*state_t s;*/
-
   double time;
   float init_cond[12];
 
@@ -137,14 +135,15 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
   double R      = ic[5];
   double lambda = ic[6];
   double mu     = ic[7];
-  double Re     = ic[8] + EARTH_RAD;
+  double Re     = ic[8] + EARTH_RAD; /* convert altitude to distance 
+					from eartj center */
   double phi    = ic[9];
-  double theta  = ic[10]*(M_PI/180);
+  double theta  = ic[10]*(M_PI/180); /* convert deg to rad 
+					(use convert instead) */
   double psi    = ic[11];
 
 
   /* in kg */
-  
   r->state.m = 16.0; 
 
   r->state.Ix = 0.0025;
@@ -182,9 +181,12 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
   init_cond[0]  = u;             /* velocity component in x */
   init_cond[1]  = v;             /* velocity component in y */
   init_cond[2]  = w;             /* velocity component in z */
-  init_cond[3]  = P+ (r->state.L_BV[0][0]*WE*cos(lambda)-r->state.L_BV[0][2]*WE*sin(lambda));
-  init_cond[4]  = Q+ (r->state.L_BV[1][0]*WE*cos(lambda)-r->state.L_BV[1][2]*WE*sin(lambda));
-  init_cond[5]  = R+ (r->state.L_BV[2][0]*WE*cos(lambda)-r->state.L_BV[2][2]*WE*sin(lambda));
+  init_cond[3]  = P+ (r->state.L_BV[0][0]*WE*cos(lambda) - 
+		      r->state.L_BV[0][2]*WE*sin(lambda));
+  init_cond[4]  = Q+ (r->state.L_BV[1][0]*WE*cos(lambda) - 
+		      r->state.L_BV[1][2]*WE*sin(lambda));
+  init_cond[5]  = R+ (r->state.L_BV[2][0]*WE*cos(lambda) - 
+		      r->state.L_BV[2][2]*WE*sin(lambda));
   init_cond[6]  = lambda;  /* latitude  */
   init_cond[7]  = mu;      /* longitude */
   init_cond[8]  = Re;      /* radius */
@@ -249,7 +251,7 @@ void usage(void)
 
 void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
 {
-  int i;
+  int i, j;
   double propellant_mass = 0.0;
   double rocket_mass = 0.0;
   
@@ -277,12 +279,22 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
   printf("\n");
   printf("Rocket properties.\n");
   printf("------------------\n");
-  printf("  Number of stage : %d\n", (*rocket).n_stage);
+  printf("  Number of stages : %d\n", (*rocket).n_stage);
+
   for (i = 0; i < (*rocket).n_stage; i++)
   {
-    propellant_mass += (*rocket).stage_properties[i].propellant_mass;
-    rocket_mass += (*rocket).stage_properties[i].dry_mass;
+       /* engines contribution */
+       for (j = 0; j < (*rocket).stage_properties[i].n_engine; j++)
+       {
+	    propellant_mass += 
+		 (*rocket).stage_properties[i].engines[j].propellant_mass;
+	    rocket_mass += 
+		 (*rocket).stage_properties[i].engines[j].dry_mass;
+       }
+       /* stage structure and payload */
+       rocket_mass += (*rocket).stage_properties[i].dry_mass;
   }
+
   printf("  Propellant mass : %.2e kg\n", propellant_mass);
   printf("  Rocket dry mass : %.2e kg\n", rocket_mass);
   printf("  Total mass      : %.2e kg\n", propellant_mass + rocket_mass);
@@ -299,12 +311,6 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
     printf("  Stage %d\n", i+1);
     printf("  |->Diameter               : %.2e m\n",
            (*rocket).stage_properties[i].Diameter);
-    printf("  |->Thrust                 : %.2e N\n",
-           (*rocket).stage_properties[i].thrust);
-    printf("  |->Isp                    : %.2e s\n",
-           (*rocket).stage_properties[i].Isp);
-    printf("  |->Propellant mass        : %.2e kg\n",
-           (*rocket).stage_properties[i].propellant_mass);
     printf("  |->Dry mass               : %.2e kg\n",
            (*rocket).stage_properties[i].dry_mass);
     printf("  |->Ix                     : %.2e kg\n",
@@ -313,11 +319,6 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
            (*rocket).stage_properties[i].Iy);
     printf("  |->Iz                     : %.2e kg\n",
            (*rocket).stage_properties[i].Iz);
-    
-    printf("  |->Start time             : %.2e s\n",
-           (*rocket).stage_properties[i].start_time);
-    printf("  |->Burn time              : %.2e s\n",
-           (*rocket).stage_properties[i].burn_time);
     printf("  |->Drop time              : %.2e s\n",
            (*rocket).stage_properties[i].drop_time);
 
@@ -335,7 +336,32 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
     printf("  |->Damping coefficient    : %.2e\n",
            (*rocket).stage_properties[i].Cdamping);
 
-    printf("\n");
+    printf("  |->Number of engines      : %d\n",
+	   (*rocket).stage_properties[i].n_engine);
+    for (j = 0; j < (*rocket).stage_properties[i].n_engine; j++)
+    {
+	 printf("  |->Engine %d\n", j);
+	 printf("     |->Propellant mass    : %.2e\n",
+		(*rocket).stage_properties[i].engines[j].propellant_mass);
+	 printf("     |->Dry mass           : %.2e\n",
+		(*rocket).stage_properties[i].engines[j].dry_mass);
+	 printf("     |->Start time         : %.2e\n",
+		(*rocket).stage_properties[i].engines[j].start_time);
+	 printf("     |->Burn time          : %.2e\n",
+		(*rocket).stage_properties[i].engines[j].burn_time);
+	 printf("     |->Drop time          : %.2e\n",
+		(*rocket).stage_properties[i].engines[j].drop_time);
+	 printf("     |->Position           : (%.2e, %.2e, %.2e)\n",
+		(*rocket).stage_properties[i].engines[i].position[0],
+		(*rocket).stage_properties[i].engines[i].position[1],
+		(*rocket).stage_properties[i].engines[i].position[2]);
+	 printf("     |->Direction          : (%.2e, %.2e, %.2e)\n",
+		(*rocket).stage_properties[i].engines[i].direction[0],
+		(*rocket).stage_properties[i].engines[i].direction[1],
+		(*rocket).stage_properties[i].engines[i].direction[2]);
+    }
+
+    printf("\n"); 
   }
   printf("---------------------------------------------\n");
   printf("                END SUMMARY\n");

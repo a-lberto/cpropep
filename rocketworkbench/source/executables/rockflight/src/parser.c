@@ -16,6 +16,8 @@
 #include "gpcp.h"
 #include "librockflight/include/state.h"
 
+int get_point_value(char *name, float *point);
+
 Options rockflight_options[] = {
      {"simulation",          PARENT,   NULL},
 
@@ -34,14 +36,8 @@ Options rockflight_options[] = {
      {"psi",                 FLOAT,   "initial_conditions"},
 
      {"rocket",              PARENT,  "simulation"},
-/*     {"nb_stage",            INTEGER, "rocket"},*/
      {"stage",               PARENT,  "rocket"},
-     {"propellant_mass",     FLOAT,   "stage"},
-     {"thrust",              FLOAT,   "stage"},
-     {"Isp",                 FLOAT,   "stage"},  
-     {"start_time",          FLOAT,   "stage"},
-     {"burn_time",           FLOAT,   "stage"},
-     {"drop_time",           FLOAT,   "stage"},
+
      {"dry_mass",            FLOAT,   "stage"}, 
      {"Ix",                  FLOAT,   "stage"},
      {"Iy",                  FLOAT,   "stage"},      
@@ -53,7 +49,28 @@ Options rockflight_options[] = {
      {"Cmoment",             FLOAT,   "stage"},
      {"Cdamping",            FLOAT,   "stage"},
      {"Diameter",            FLOAT,   "stage"},
+     {"drop_time",           FLOAT,   "stage"},
 
+     {"engine",              PARENT,  "stage"},
+     {"type",                STRING,  "engine"},
+     {"propellant_mass",     FLOAT,   "engine"},
+     {"dry_mass",            FLOAT,   "engine"},
+     {"thrust",              FLOAT,   "engine"},
+     {"thrust_data_file",    STRING,  "engine"},
+     {"mass_flow",           FLOAT,   "engine"},
+     {"c",                   FLOAT,   "engine"},
+     {"start_time",          FLOAT,   "engine"},
+     {"burn_time",           FLOAT,   "engine"},
+     {"drop_time",           FLOAT,   "engine"},
+     {"position",            PARENT,  "engine"},
+     {"x",                   FLOAT,   "position"},
+     {"y",                   FLOAT,   "position"},
+     {"z",                   FLOAT,   "position"},
+     {"direction",           PARENT,  "engine"},
+     {"x",                   FLOAT,   "direction"},
+     {"y",                   FLOAT,   "direction"},
+     {"z",                   FLOAT,   "direction"},
+			       
      {"solution",            PARENT,  "simulation"},
      {"duration",            FLOAT,   "solution"},
      {"dt",                  FLOAT,   "solution"},
@@ -64,11 +81,13 @@ Options rockflight_options[] = {
 int load_data(Data *data, rocket_t *rocket, float *init_cond,
               solution_t *solution)
 {
-     int i;
-     int n;
+     int i, j;
+     int n, m;
 
      float *val;
      
+     engine_t *engine;
+
      if (GPCP_EnterLevel("simulation", 0) == -1)
      {
           printf("Error: no simulation to execute in config file.\n");
@@ -182,29 +201,6 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
                     }
                     else
                     {
-                         val = &(*rocket).stage_properties[i].propellant_mass;
-                         if (GPCP_GetValue ("propellant_mass", val) != 0)
-                              *val = 0.0;
-
-                         val = &(*rocket).stage_properties[i].thrust;
-                         if (GPCP_GetValue ("thrust", val) != 0)
-                              *val = 0.0;
-
-                         val = &(*rocket).stage_properties[i].Isp;
-                         if (GPCP_GetValue ("Isp", val) != 0)
-                              *val = 0.0;
-
-                         val = &(*rocket).stage_properties[i].start_time;
-                         if (GPCP_GetValue ("start_time", val) != 0)
-                              *val = 0.0;
-
-                         val = &(*rocket).stage_properties[i].burn_time;
-                         if (GPCP_GetValue ("burn_time", val) != 0)
-                              *val = 0.0;
-
-                         val = &(*rocket).stage_properties[i].drop_time;
-                         if (GPCP_GetValue ("drop_time", val) != 0)
-                              *val = 0.0;
 
                          val = &(*rocket).stage_properties[i].dry_mass;
                          if (GPCP_GetValue ("dry_mass", val) != 0)
@@ -250,6 +246,96 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
                          if (GPCP_GetValue ("Diameter", val) != 0)
                               *val = 0.0;
 
+                         val = &(*rocket).stage_properties[i].drop_time;
+                         if (GPCP_GetValue ("drop_time", val) != 0)
+                              *val = 0.0;
+
+			 m = GPCP_NumParent("engine");
+			 (*rocket).stage_properties[i].n_engine = m;
+			 if (m < 1)
+			 {
+			      printf("There is no engine for stage %d\n", i);
+			      (*rocket).stage_properties[i].engines = NULL;
+			 }
+			 else
+			 {
+			      /* allocate memory for engines */
+			      (*rocket).stage_properties[i].engines = 
+				   (engine_t *) malloc (sizeof(engine_t)*m);
+			 }
+			 
+			 for (j = 0; j < m; j++)
+			 {         
+			      if (GPCP_EnterLevel("engine", j) == -1)
+			      {
+				   
+			      }
+			      else
+			      {
+		       	       /* set a temporary pointer */
+			       engine = 
+				   &((*rocket).stage_properties[i].engines[j]);
+			       /*
+			       if (GPCP_GetValue("type", val) != 0)
+				    *val = 0.0;
+				    */
+			       val = &(engine->propellant_mass);
+			       if (GPCP_GetValue("propellant_mass", val) != 0)
+				    *val = 0.0;
+
+			       val = &(engine->dry_mass);
+			       if (GPCP_GetValue("dry_mass", val) != 0)
+				    *val = 0.0;
+
+			       /*
+			       val = &(engine->thrust);
+			       if (GPCP_GetValue("thrust", val) != 0)
+				    *val = 0.0;
+				    */
+			       /*
+			       if (GPCP_GetValue("thrust_data_file", val) != 0)
+				    *val = 0.0;
+				    */
+			       val = &(engine->mass_flow);
+			       if (GPCP_GetValue("mass_flow", val) != 0)
+				    *val = 0.0;
+
+			       val = &(engine->c);
+			       if (GPCP_GetValue("c", val) != 0)
+				    *val = 0.0;
+
+			       val = &(engine->start_time);
+			       if (GPCP_GetValue("start_time", val) != 0)
+				    *val = 0.0;
+
+			       val = &(engine->burn_time);
+			       if (GPCP_GetValue("burn_time", val) != 0)
+				    *val = 0.0;
+
+			       val = &(engine->drop_time);
+			       if (GPCP_GetValue("drop_time", val) != 0)
+				    *val = 0.0;
+
+			       val = engine->position;
+			       if (get_point_value("position", val) != 0)
+			       {
+				    printf("Unable to get position.\n");
+			       }
+
+			       val = engine->direction;
+			       if (get_point_value("direction", val) != 0)
+			       {
+				    printf("Unble to get direction.\n");
+			       }
+			       
+			      }
+			      if (GPCP_ExitLevel() != 0)
+			      {
+				   printf("Unable to leave engine level.\n");
+			      }
+			 }
+			 
+			 
                          if (GPCP_ExitLevel() != 0) 
                          { 
                               printf("Unable to leave 'initial_conditions'"
@@ -257,12 +343,8 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
                          }  
                     }
                     
-/*                    if (GPCP_ExitLevel() != 0) 
-                    { 
-                         printf("Unable to leave 'stage' level.\n"); 
-                         } */ 
                }
-
+	       
                if (GPCP_ExitLevel() != 0) 
                { 
                     printf("Unable to leave 'rocket' level.\n"); 
@@ -317,6 +399,31 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
           }           
      }
 
+     return 0;
+}
+
+
+int get_point_value(char *name, float *point)
+{
+     if (GPCP_EnterLevel(name, 0) != 0)
+     {
+	  return -1;
+     }
+     else
+     {
+	  if (GPCP_GetValue("x", point+0) != 0)
+	       *(point+0) = 0.0;
+	  if (GPCP_GetValue("y", point+1) != 0)
+	       *(point+1) = 0.0;
+	  if (GPCP_GetValue("z", point+2) != 0)
+	       *(point+2) = 0.0;
+     }
+
+     if (GPCP_ExitLevel() != 0)
+     {
+	  printf("Unable to leave '%s' level.\n", name);
+	  return -1;
+     }
      return 0;
 }
 
