@@ -10,7 +10,7 @@ simulation =
 			 longitude = 0.0,
 			 altitude  = 1000.0,
 			 phi       = 0.0,
-			 theta     = 0.0,
+			 theta     = 90.0,
 			 psi       = 0.0
 			),
    rocket = (stage = (dry_mass        = 10.0,
@@ -106,7 +106,7 @@ simulation =
 			       )
                     )
               )
-  ,solution = (duration  = 5.0,
+  ,solution = (duration  = 50.0,
                dt        = 0.01,
                precision = 0.0001)
   )

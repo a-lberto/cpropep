@@ -15,7 +15,9 @@ int aero(rocket_t *r, double *y, double *t)
 {
 
   state_t *s;
-  
+
+  double q; /* dynamic pressure */
+
   double u      = y[0];  /* velocity component in x */
   double v      = y[1];  /* velocity component in y */
   double w      = y[2];  /* velocity component in z */ 
@@ -76,23 +78,24 @@ int aero(rocket_t *r, double *y, double *t)
  /* A = M_PI * s->D * S->D / 4; */
 /*  S = S->D; */
 
-  FD = - s->Cdrag * 0.5 * air.rho * s->A * V * V;
-  FL =   s->Clift * 0.5 * air.rho * s->A * V * V * sin(alpha);
-  FB =   s->Cbeta * 0.5 * air.rho * s->A * V * V * sin(beta);
+  q = 0.5 * air.rho * V * V;
+
+  FD = - s->Cdrag * q * s->A;
+  FL = - s->Clift * q * s->A * alpha;
+  FB = - s->Cbeta * q * s->A * beta;
 
   /*printf("FD = %f, FL = %f\n", FD, FL);*/
   
   ML = 0;
-  MG = 0;/*- Cdamping * air.rho * V * s->P * A * C / 2;*/
+  MG = 0; /*s->C_l_p * q * s->A * pow(s->C, 2) * s->P / (2 * u); */
     
-  MM = - s->Cmoment  * 0.5 * air.rho * s->A * s->C * V * V * sin(alpha);
-  MH = - s->Cdamping * 0.5 * air.rho * s->A * s->C * V * s->Q * s->C;
+  MM = s->Cmoment  * q * s->A * s->C * alpha;
+  MH = s->Cdamping * q * s->A * pow(s->C, 2) * s->Q / (2 * u);
 
   /*printf("MM = %f, MH = %f\n", MM, MH);*/
   
-  MN = 0;/*- Cmoment * qbar * A * C * sin(beta);*/
-  MI = 0;/*- Cdamping * air.rho * V * s->R * A * C / 2;*/
-
+  MN = s->Cmoment  * q * s->A * s->C * beta;
+  MI = s->Cdamping * q * s->A * pow(s->C, 2) * s->R / (2 * u);
   
   /* transform wind axis forces to body axis forces */
   X = FD*cos(alpha)*cos(beta) - FB*cos(alpha)*sin(beta) - FL*sin(alpha);

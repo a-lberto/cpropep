@@ -55,7 +55,7 @@ int atmosphere (AIR *a, double altitude)
   
   if (zone < 0)
   {      /* Below atmosphere data! */
-    fprintf(stderr, "*** ERROR: Below atmospheric model (%f)\n", alt);
+    /* fprintf(stderr, "*** ERROR: Below atmospheric model (%f)\n", alt); */
     return -1;
   }
   

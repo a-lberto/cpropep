@@ -17,6 +17,10 @@
 
 # There is two units that are support for ingredient quantity g (gram) or m (mole)
 
+Propellant
++600 6.2012 m
++618 7.7632 m
+
 #Propellant HTPB/KClO4/Al
 #+108 78 g
 #+788 11 g
@@ -46,9 +50,9 @@
 #+686 51 g
 #+673 20 g
 
-Propellant O2/PROPANE
-+686 51 g
-+771 20 g
+#Propellant O2/PROPANE
+#+686 51 g
+#+771 20 g
 
 #Propellant O2/NH3
 #+686 28 g
@@ -87,7 +91,7 @@ Propellant O2/PROPANE
 # subsonic_area_ratio:   exit to throat area for an area before any nozzle
 
 FR
-+chamber_pressure      40 atm
++chamber_pressure      68.049 atm
 +exit_pressure         1   atm
 #+supersonic_area_ratio 8.566 
 #+subsonic_area_ratio   5
@@ -96,7 +100,7 @@ FR
 # The options are the same as for frozen.
 
 EQ
-+chamber_pressure      40 atm 
++chamber_pressure      68.049 atm 
 +exit_pressure         1   atm
 #+supersonic_area_ratio 10 
 #+subsonic_area_ratio   5

@@ -34,23 +34,12 @@
 
 #include "libcompat/include/compat.h"
 
-#define version "1.0"
-#define date    "10/07/2000"
-
-/*
-#define CHAMBER_MSG     "Time spent for computing chamber equilibrium"
-#define FROZEN_MSG      "Time spent for computing frozen performance"
-#define EQUILIBRIUM_MSG "Time spent for computing equilibrium performance"
-*/
+#define version "1.1"
+#define date    "25/10/2001"
 
 #ifndef CONF_FILE
 #define CONF_FILE "cpropep.conf"
 #endif
-
-/*
-#undef TIME
-#define TIME(function, msg) function;
-*/
 
 #define MAX_CASE 10
 
@@ -600,7 +589,7 @@ int main(int argc, char *argv[])
     }
     
     load_input(fd, equil, case_list, &exit_pressure);
-    
+
     compute_density(&(equil->propellant));
     
     fclose(fd);
@@ -616,6 +605,16 @@ int main(int argc, char *argv[])
     i = 0;
     while ((case_list[i].p != -1) && (i <= MAX_CASE))
     {
+      /*
+      printf("Type : %d\n", case_list[i].p);
+      printf("Tset : %d\n", case_list[i].temperature_set);
+      printf("Pset : %d\n", case_list[i].pressure_set);
+      printf("Eset : %d\n", case_list[i].exit_condition_set);
+      printf("T    : %f\n", case_list[i].temperature);
+      printf("P    : %f\n", case_list[i].pressure);
+      printf("E    : %f\n", case_list[i].exit_condition);
+      */
+
       fprintf(outputfile, "Computing case %d\n%s\n\n", i+1,
               case_name[case_list[i].p]);
 
@@ -685,6 +684,8 @@ int main(int argc, char *argv[])
               printf("Exit condition not set. Aborted.\n");
               break;
             }
+
+	    initialize_equilibrium(equil);
 
             equil->properties.T = case_list[i].temperature;
             equil->properties.P = case_list[i].pressure;

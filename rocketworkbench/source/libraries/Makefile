@@ -8,10 +8,10 @@
 
 all:
 
-        @echo "  --------------------"
-        @echo "  Compiling gpcp   ..."
-        @echo "  --------------------"
-        @$(MAKE) --no-print-directory -C gpcp all
+	@echo "  --------------------"
+	@echo "  Compiling gpcp   ..."
+	@echo "  --------------------"
+	@$(MAKE) --no-print-directory -C gpcp all
 
 	@echo "  --------------------"
 	@echo "  Compiling libnum ..."
