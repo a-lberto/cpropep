@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <unistd.h>
+/*#include <unistd.h>*/
 #include <math.h>
 
 /* Numerical method library */
@@ -11,6 +11,8 @@
 #include "gpcp/src/gpcp.h"
 /* Conversion library */
 #include "libconvert/include/convert.h"
+
+#include "libcompat/include/getopt.h"
 
 #include "analyser.h"
 
@@ -209,6 +211,7 @@ int parse_config(char *configfile, char **datafile, format_t *f, motor_t *m)
 {
   char *tmp;
   float number;
+  double dtmp;
   
   Data *config;
   
@@ -280,9 +283,11 @@ int parse_config(char *configfile, char **datafile, format_t *f, motor_t *m)
         printf("Unable to get units.\n");
         return 1;
       }
-      
-      f->scthrust = 1.0;
-      convert("force", &(f->scthrust), tmp, "N");      
+
+      dtmp = 1.0;
+      /*convert("force", &(f->scthrust), tmp, "N");*/
+      convert(&dtmp, tmp, "N", &(f->scthrust));
+
       free(tmp);
       
       GPCP_ExitLevel();
@@ -316,8 +321,8 @@ int parse_config(char *configfile, char **datafile, format_t *f, motor_t *m)
         return 1;
       }
 
-      m->prop_mass = (double) number;
-      if (convert("mass", &(m->prop_mass), tmp, "kg"))
+      dtmp = (double) number;
+      if (convert(&dtmp, tmp, "kg", &(m->prop_mass)))
       {
         printf("Incorrect units: %s\n", tmp);
         return -1;
@@ -346,7 +351,8 @@ int parse_config(char *configfile, char **datafile, format_t *f, motor_t *m)
       }
       
       m->total_mass = (double) number;
-      if (convert("mass", &(m->total_mass), tmp, "kg"))
+      dtmp = (double) number;
+      if (convert(&dtmp, tmp, "kg", &(m->total_mass)))
       {
         printf("Incorrect units: %s\n", tmp);
         return -1;
