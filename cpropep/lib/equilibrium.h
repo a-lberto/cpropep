@@ -122,13 +122,13 @@ AUTHOR:   Antoine Lefebvre
 ****************************************************************/
 
 
-#ifdef TRUE_ARRAY
+//#ifdef TRUE_ARRAY
 //int fill_equilibrium_matrix(double *matrix, equilibrium_t *e, problem_t P);
 int fill_matrix(double *matrix, equilibrium_t *e, problem_t P);
-#else
+//#else
 //int fill_equilibrium_matrix(double **matrix, equilibrium_t *e, problem_t P);
-int fill_matrix(double **matrix, equilibrium_t *e, problem_t P);
-#endif
+//int fill_matrix(double **matrix, equilibrium_t *e, problem_t P);
+//#endif
 
 
 /****************************************************************
