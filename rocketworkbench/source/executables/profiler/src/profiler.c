@@ -4,6 +4,8 @@
 #include "gpcp.h"
 #include "libcompat/include/getopt.h"
 
+#include "profiler.h"
+
 Options rocket_options[] = {
   {"global",       PARENT,  NULL},
   {"length_units", STRING,  "global"},
