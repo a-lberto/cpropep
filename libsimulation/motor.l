@@ -1,30 +1,44 @@
+/* motor.l  -  Simulation of rocket flight                             */
+/* Copyright (C) 2000                                                  */
+/* Antoine Lefebvre <antoine.lefebvre@polymtl.ca>                      */
 
+/* This program is free software; you can redistribute it and/or modify*/
+/* it under the terms of the GNU General Public License as published by*/
+/* the Free Software Foundation; either version 2 of the License, or   */
+/* (at your option) any later version.                                 */
+
+/* This program is distributed in the hope that it will be useful,     */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of      */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       */ 
+/* GNU General Public License for more details.                        */
+
+/* You should have received a copy of the GNU General Public License   */
+/* along with this program; if not, write to the Free Software         */
+/* Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.           */
 
 %{
 
 #define YY_DECL int motorscan(char *name, double *diameter, double *length, double *masse_totale, double *masse_poudre, double **thrust, int *ndata)
 
-/* entête C */
-
-/* #include "c++rocket.h" */
 
 double P[2][200];
-char bidon[32];
-int foo;
-int count;
-int i;
-int j;
+char   bidon[32];
+int    foo;
+int    count;
+int    i;
+int    j;
 
-int tmp1, tmp2, tmp3;
+int    tmp1, tmp2, tmp3;
 double dtmp1, dtmp2;
+
 %}
 
 %x body
-/*entete de flex*/
+
 
 %%
 
-<*>#+.*\n     ;/*elimination des caracteres inutile */
+<*>#+.*\n     ; /* elimination of the character #, \t, \n, space, ; */
 ^[ ]+         ;
 <*>^\t+       ;
 <*>\n         ;
@@ -70,14 +84,14 @@ double dtmp1, dtmp2;
 }
 
 64.* {
-  //thrust[0] = (double*) malloc(sizeof(double[count]));
+  // allocate the memory
   thrust[0] = new double[count];
-  //thrust[1] = (double*) malloc(sizeof(double[count]));
   thrust[1] = new double[count];
   
   ndata[0] = count;
   
-  for (j = 0; j < count; j++) {
+  for (j = 0; j < count; j++) 
+  {
     thrust[0][j] = P[0][j];
     thrust[1][j] = P[1][j] * 4.448221615; //1lb X 9.80665 X 0.45359237 kg/lb
   }
@@ -106,9 +120,7 @@ double dtmp1, dtmp2;
 
 <body>";"+.*\n {
 
-  //thrust[0] = (double*) malloc(sizeof(double[count]));
   thrust[0] = new double[count];
-  //thrust[1] = (double*) malloc(sizeof(double[count]));
   thrust[1] = new double[count];
   ndata[0] = count;
   for (i = 0; i < 2; i++)
