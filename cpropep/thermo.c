@@ -374,6 +374,29 @@ int atomic_number(char *symbole)
   return element;
 }
 
+int compute_density(composition_t *c)
+{
+  short i;
+  double mass = 0;
+
+  c->density = 0.0;
+  
+  for (i = 0; i < c->ncomp; i++)
+  {
+    mass += c->coef[i] * propellant_molar_mass(c->molecule[i]);
+  }
+  
+  for (i = 0; i < c->ncomp; i++)
+  {
+    c->density += c->coef[i] * propellant_molar_mass(c->molecule[i])
+      / (mass * (propellant_list + c->molecule[i])->density);
+  }
+
+  c->density = 1/c->density;
+
+  return 0;
+}
+
 /* This fonction return the offset of the molecule in the propellant_list
    the argument is the chemical formula of the molecule */
 int propellant_search_by_formula(char *str)

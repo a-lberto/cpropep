@@ -1121,7 +1121,7 @@ int equilibrium(equilibrium_t *equil, problem_t P)
   bool      solution_ok    = false;
 
   product_t       *p  = &(equil->product);
-  equilib_prop_t  *pr = &(equil->properties);
+//  equilib_prop_t  *pr = &(equil->properties);
   
   /* position of the right side of the matrix dependeing on the
      type of problem */
