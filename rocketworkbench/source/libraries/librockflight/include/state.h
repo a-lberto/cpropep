@@ -8,6 +8,38 @@ typedef real scalar_t;
 typedef real vector_t[3];
 typedef real matrix_t[3][3];
 
+typedef enum
+{
+  _CONSTANT,
+  _FUNCTION,
+  _TABLE
+} val_t;
+
+typedef enum
+{
+  ALT,
+  MACH,
+  AOA,
+  TIME
+} parameter_t;
+
+typedef struct _function
+{
+  char *name;
+  val_t type;
+
+  /* if type is _CONSTANT */
+  float constant_value;
+
+  /* if type is _TABLE */
+  int n_point;
+  parameter_t independant_var;
+  float *x, *y;
+  
+  /* if type is _FUNCTION */
+  char *function;
+  
+} function_t;
 
 typedef struct state
 {
@@ -20,10 +52,15 @@ typedef struct state
   scalar_t Iy;
   scalar_t Iz;
 
+  /* */
+  scalar_t alt;
+  scalar_t aoa;
+  scalar_t mach;
+  
   /* aerodynamic coefficients */
-  scalar_t Clift;
-  scalar_t Cbeta;
-  scalar_t Cdrag;
+  scalar_t Cd;
+  scalar_t CL;
+  scalar_t CB;
   scalar_t Cspin;
   scalar_t Cmoment;
   scalar_t Cdamping;
@@ -61,22 +98,18 @@ typedef struct state
   
 } state_t;
 
-typedef enum
-{
-  _CONSTANT,
-  _FUNCTION
-} val_t;
+
+
+
+
 
 typedef struct engine
 {
   float propellant_mass;
   float dry_mass;
-  /*  float thrust; */
-  val_t thrust_type;
-  int n_point;
-  float *time;
-  float *thrust;
 
+  function_t thrust;
+  
   float c;
   float mass_flow;
 
@@ -92,17 +125,23 @@ typedef struct engine
 typedef struct rocket_properties
 {
   float dry_mass;
-  float Ix;
-  float Iy;
-  float Iz;
-  float Cdrag;
-  float Clift;
-  float Cbeta;
+
+  function_t Ix;
+  function_t Iy;
+  function_t Iz;
+  
+  function_t Cd;
+  function_t CL;
+  function_t CB;
+
   float Cspin;
   float Cmoment;
   float Cdamping;
+  
   float Diameter;
+  
   float active_time;
+  
   int n_engine;
   engine_t *engines;
 } rocket_properties_t;
