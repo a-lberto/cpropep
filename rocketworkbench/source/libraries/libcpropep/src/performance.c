@@ -349,7 +349,7 @@ int shifting_performance(equilibrium_t *e, exit_condition_t exit_type,
   double exit_pressure = 0;
   
   equilibrium_t *t  = e + 1; /* throat equilibrium */
-  equilibrium_t *ex = e + 2; /* throat equilibrium */
+  equilibrium_t *ex = e + 2; /* exit equilibrium */
   
   /* find the equilibrium composition in the chamber */
   if (!(e->product.isequil))
