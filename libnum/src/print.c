@@ -1,3 +1,10 @@
+/* print.c
+ * $Id$
+ * Copyright (C) 2000
+ *    Antoine Lefebvre <antoine.lefebvre@polymtl.ca>
+ *
+ * Licensed under the GPL
+ */
 
 #include <stdio.h>
 #include "num.h"
@@ -40,3 +47,8 @@ int NUM_print_vec(double *vec, int neq)
   printf("\n");
   return 0;
 }
+
+
+
+
+
