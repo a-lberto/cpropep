@@ -11,8 +11,10 @@ typedef real matrix_t[3][3];
 
 typedef struct state
 {
-  scalar_t m;
-  scalar_t g;
+  int s; /* active stage */
+  
+  scalar_t m; /* mass of the rocket */
+  scalar_t g; /* gravitational acceleration */
 
   scalar_t Ix;
   scalar_t Iy;
@@ -59,11 +61,18 @@ typedef struct state
   
 } state_t;
 
+typedef enum
+{
+  _CONSTANT,
+  _FUNCTION
+} val_t;
+
 typedef struct engine
 {
   float propellant_mass;
   float dry_mass;
   /*  float thrust; */
+  val_t thrust_type;
   int n_point;
   float *time;
   float *thrust;
@@ -93,7 +102,7 @@ typedef struct rocket_properties
   float Cmoment;
   float Cdamping;
   float Diameter;
-  float drop_time;
+  float active_time;
   int n_engine;
   engine_t *engines;
 } rocket_properties_t;
