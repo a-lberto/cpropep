@@ -38,7 +38,9 @@
 //#define FROZEN_MSG      "Time spent for computing frozen performance"
 //#define EQUILIBRIUM_MSG "Time spent for computing equilibrium performance"
 
+#ifndef CONF_FILE
 #define CONF_FILE "cpropep.conf"
+#endif
 
 
 //#undef TIME
