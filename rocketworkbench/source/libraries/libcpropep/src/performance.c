@@ -180,6 +180,8 @@ int frozen_performance(equilibrium_t *e, exit_condition_t exit_type,
   t->properties.P    = e->properties.P/pc_pt;
   t->performance.Isp = t->properties.Vson = sound_velocity;
 
+  compute_thermo_properties(t);
+
   /* Now compute exit properties */ 
   copy_equilibrium(ex, e);
 
