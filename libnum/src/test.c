@@ -272,8 +272,15 @@ int test_rk4(void)
   /* it return the length of the answer vector */
   //n = NUM_rk4 (function, 4, 0.1, 10, ic, &ans, NULL);
 
+  //for (i = 0; i < n; i++)
+  //{
+  //  printf("%f %f %f %f \n", ans[4*i], ans[1 + 4*i], ans[2+4*i], ans[3+4*i]);
+  //}
+
   n = NUM_rkf (function, 4, 0.1, 20, ic, &ans, 1e-4, NULL);
-  
+
+  printf("n = %i\n", n);
+
   for( i = 0; i < n; i++)
   {
     printf("%f  %f  %f  %f  %f\n", ans[4 + 5*i], ans[5*i],
