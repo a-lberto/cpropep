@@ -20,9 +20,15 @@ extern const double G; // contante de gravitation universelle
 
 typedef enum
 {
-     AERO_MODEL,
-     SIMPLE_MODEL,
-     MODEL_LAST
+  AERO_MODEL,
+  SIMPLE_MODEL,
+  MODEL_LAST
 } Model_t;
 
 #endif
+
+
+
+
+
+

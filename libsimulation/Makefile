@@ -6,8 +6,8 @@ CFLAG    = -g -Wall
 
 LEXER    = motor
 
-CXXSRC   = simulation.cc modeles.cc rocket.cc lsode.cc
-CXXOBJS  = simulation.o modeles.o rocket.o lsode.o
+CXXSRC   = simulation.cc modeles.cc rocket.cc lsode.cc rk4.cc
+CXXOBJS  = simulation.o modeles.o rocket.o lsode.o rk4.o
 
 
 COBJS    = motor.yy.o

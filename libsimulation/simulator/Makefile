@@ -5,15 +5,15 @@ CC       = gcc
 CXXFLAGS = -g -Wall
 CFLAG    = -g -Wall 
 
-LIBS     = -lm -lrocket -lcruft -lf2c -ldl
-LIBDIR   = -L/usr/lib -L/usr/lib/octave-2.0.14.93 -L../ 
+LIBS     = -lm -lrocket -lnum -lcruft -lf2c -ldl
+LIBDIR   = -L/usr/lib -L/usr/lib/octave-2.0.14.93 -L../ -L../../libnum/
 
 
 
-INCLUDE  += -I../
+INCLUDE  += -I../ -I../../libnum/
 
 SRC      = c++rocket.cc
-OBJS     = c++rocket.o ccmalloc.o
+OBJS     = c++rocket.o #ccmalloc.o
 
 PROG     = c++rocket
 
