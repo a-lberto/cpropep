@@ -43,7 +43,7 @@ simulation =
                                                    y =  0.0,
 					           z =  0.0)
 			       ),
-                      engine = (type             = "thrust_vs_time",
+                      engine = (type             = "thrust_table_data",
 	                        propellant_mass  = 2.0,
 				dry_mass         = 1.0,
 				thrust_data_file = "thrust.dat",
@@ -89,7 +89,7 @@ simulation =
                                                    y =  0.0,
 					           z =  0.0)
 			       ),
-                      engine = (type             = "thrust_vs_time",
+                      engine = (type             = "thrust_table_data",
 	                        propellant_mass  = 2.0,
 				dry_mass         = 1.0,
 				thrust_data_file = "thrust.dat",
@@ -108,7 +108,7 @@ simulation =
               )
   ,solution = (duration  = 50.0,
                dt        = 0.01,
-               precision = 0.0001)
+               precision = 0.01)
   )
 
 

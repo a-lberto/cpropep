@@ -59,7 +59,7 @@ simulation =
 	              # stage is active, i.e. from the time the previous 
 	              # stage were drop until this stage is drop.
 	              active_time     = 3.0,
-                      engine = (type             = "thrust_vs_time",
+                      engine = (type             = "thrust_table_data",
 	                        propellant_mass  = 0.2,
 				dry_mass         = 0.3,
 				thrust_data_file = "thrust.dat",
