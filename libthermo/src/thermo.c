@@ -383,7 +383,7 @@ int atomic_number(char *symbole)
   /* find the atomic number of the element */
   for (i = 0; i < N_SYMB; i++)
   {
-    if (!strcmp(symbole, symb[i]))
+    if (!STRCASECMP(symbole, symb[i]))
     {
       element = i;
       break;

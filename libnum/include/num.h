@@ -58,6 +58,7 @@ typedef struct status
  *    october 20, 2000 revision of the permutation method
  */
 int NUM_lu(double *matrix, double *solution, int neq);
+//int old_lu(double *matrix, double *solution, int neq);
 
 /* This function print the coefficient of the matrix to
  * the screen. 
@@ -135,6 +136,12 @@ int NUM_ptfix(double (*f)(double x), double x0,
 int NUM_sysnewton(func_t *Jac, func_t *R, double *x, int nvar,
                   int nmax, double eps);
 
+
+int trapeze(double *data, int n_point, int col, int off, double *integral);
+
+int simpson(double *data, int n_point, int col, int off, double *integral);
+
+int create_spline(double *data, int n_point, double *spline);
 
 #endif
 

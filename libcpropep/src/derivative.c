@@ -92,7 +92,7 @@ int derivative(equilibrium_t *e)
 
   fill_temperature_derivative_matrix(matrix, e);
   
-  if ( lu(matrix, sol, size) == -1 )
+  if (NUM_lu(matrix, sol, size) == -1)
   {
     fprintf(outputfile, "The matrix is singular.\n");
   }
@@ -101,7 +101,7 @@ int derivative(equilibrium_t *e)
     if (global_verbose > 2)
     {
       fprintf(outputfile, "Temperature derivative results.\n");
-      print_vec(sol, size);
+      NUM_print_vec(sol, size);
     }
     
     prop->Cp   = mixture_specific_heat(e, sol)*R;
@@ -110,7 +110,7 @@ int derivative(equilibrium_t *e)
 
   fill_pressure_derivative_matrix(matrix, e);
 
-  if ( lu(matrix, sol, size) == -1 )
+  if (NUM_lu(matrix, sol, size) == -1)
   {
     fprintf(outputfile, "The matrix is singular.\n");
   }
@@ -119,7 +119,7 @@ int derivative(equilibrium_t *e)
     if (global_verbose > 2)
     {
       fprintf(outputfile, "Pressure derivative results.\n");
-      print_vec(sol, size);
+      NUM_print_vec(sol, size);
     }
     prop->dV_P = sol[e->product.n_element + e->product.n[CONDENSED]] - 1;
     
