@@ -1,2 +1,2 @@
 LIBNAME = librockflight.a
-LIBOBJS = eom.o atmos.o aero.o engine.o rocket.o
+LIBOBJS = eom.o atmos.o aero.o engine.o mass.o stage.o rocket.o

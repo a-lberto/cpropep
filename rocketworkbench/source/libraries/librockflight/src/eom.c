@@ -9,10 +9,12 @@
 #include "librockflight/include/state.h"
 #include "atmos.h"
 #include "engine.h"
+#include "mass.h"
+#include "stage.h"
 
 #define SEC(THETA) (1./cos(THETA))
 
-int set_state(state_t *s, rocket_t *rocket, double *y, double *time);
+int set_state(rocket_t *rocket, double *y, double *time);
 
 int eom(int neq, double time, double *y, double *dy, void *data)
 {
@@ -31,7 +33,7 @@ int eom(int neq, double time, double *y, double *dy, void *data)
   double Re     = y[8];  /* distance from earth center */
   double phi    = y[9];  /* euler angles */
   double theta  = y[10]; /* */
-  double psi    = y[11]; /* */
+/*double psi    = y[11];*//* */
   
  
   /* aerodynamic forces */
@@ -47,7 +49,7 @@ int eom(int neq, double time, double *y, double *dy, void *data)
   /* set the pointer to the rocket state structure */
   s = &(rocket->state);
 
-  set_state(s, rocket, y, &time);
+  set_state(rocket, y, &time);
 
       
   X += s->Faero[0]; /*printf("X = %f\n", s->Faero[0]);*/
@@ -114,15 +116,15 @@ int eom(int neq, double time, double *y, double *dy, void *data)
 }
 
 
-int set_state(state_t *s, rocket_t *rocket, double *y, double *time)
+int set_state(rocket_t *rocket, double *y, double *time)
 {
-
-  double u      = y[0];  /* velocity component in x */
-  double v      = y[1];  /* velocity component in y */
-  double w      = y[2];  /* velocity component in z */ 
-  double p      = y[3];  /* angular velocity */
-  double q      = y[4];  /* */
-  double r      = y[5];  /* */
+  state_t *s;
+  /*double u      = y[0];*/  /* velocity component in x */
+  /*double v      = y[1];*/  /* velocity component in y */
+  /*double w      = y[2];*/  /* velocity component in z */ 
+  /*double p      = y[3];*/  /* angular velocity */
+  /*double q      = y[4];*/  /* */
+  /*double r      = y[5];*/  /* */
   double lambda = y[6];  /* latitude */
   /* double mu     = y[7];*/  /* longitude */
   double Re     = y[8];  /* distance from earth center */
@@ -130,9 +132,10 @@ int set_state(state_t *s, rocket_t *rocket, double *y, double *time)
   double theta  = y[10]; /* */
   double psi    = y[11]; /* */
 
+  s = &(rocket->state);
+
   /* set the mass properties */
   /* should be a function of time */
-
 
   /*s->m = rocket->stage_properties[0].dry_mass;*/
   
@@ -175,10 +178,20 @@ int set_state(state_t *s, rocket_t *rocket, double *y, double *time)
   /* gravitational model */
   s->g = UGC*ME/(Re*Re);
 
-  /* compute aerodynamic forces and moments */
-  if (aero(y, s))
+  /* find the actual active stage */
+  if (stage(rocket, time))
     return -1;
-  if (engine(y, s))
+
+  /* compute rocket mass */
+  if (mass(rocket, time))
+    return -1;
+
+  /* compute aerodynamic forces and moments */
+  if (aero(rocket, y, time))
+    return -1;
+
+  /* compute enginethrust */
+  if (engine(rocket, time))
     return -1;
 
   return 0;
