@@ -1,3 +1,0 @@
-
-Options rockflight_options[] = {
-
