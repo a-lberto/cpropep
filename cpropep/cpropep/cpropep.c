@@ -13,9 +13,12 @@
 #include <malloc.h>
 #include <time.h>
 
-#include "getopt.h"
-
 #ifdef GCC
+#include <unistd.h>
+#else
+#include "getopt.h"
+#endif
+
 #include "load.h"
 #include "equilibrium.h"
 #include "performance.h"
@@ -27,22 +30,6 @@
 #include "conversion.h"
 #include "compat.h"
 #include "return.h"
-#endif /* GCC */
-
-#ifdef _MSC_VER
-#include "..\lib\load.h"
-
-#include "..\lib\equilibrium.h"
-#include "..\lib\performance.h"
-#include "..\lib\derivative.h"
-#include "..\lib\thermo.h"
-
-#include "..\lib\print.h"
-
-#include "..\lib\conversion.h"
-#include "..\lib\compat.h"
-#include "..\lib\return.h"
-#endif /* _MSC_VER */
 
 #define version "1.0"
 #define date    "10/07/2000"
