@@ -7,6 +7,8 @@
 
 typedef struct _fin_t
 {
+  int N;     /* number of fins in this set (usually 3 or 4) */
+
   /* fin description */
   double s;  /* semispan */
   double cr; /* root chord */
@@ -15,27 +17,41 @@ typedef struct _fin_t
   double lt; /* position of the leading edge from nose tip */
   double xt; /* position of the leading edge at tip chord relative to
 		leading edge at root chord, in the x direction */
-  int N;     /* number of fins in this set (usually 3 or 4) */
-
+  
   /* calculation results */
   double Yt; /* Center of pressure Y position (radially) */
   double Xt; /* Center of pressure X position (from the nose tip) */
+  double Xbt; /* Center of pressure X position with body interferance */
 
   double AR; /* aspect ratio */
   double Af; /* aera of one fin */
-  double C_N_alpha_1; /* fin normal force coefficient derivative */
-  double C_l_delta;   /* fin roll forcing moment coefficient derivative */
-  double C_l_p;       /* tail roll damping moment derivative */
+
+  /* the C_N_alpha_1 value is a function of the mach number.
+     the values will evaluate for some discrete value of the mach
+     number and stored in an array for table lookup.
+  */
+  
+  double *C_N_alpha_1; /* fin normal force coefficient derivative for each
+			mach number */
+
+
+  /* these value should be multiply by C_N_alpha_1 to get the coefficient */
+  double C_l_delta_m;  /* fin roll forcing moment coefficient derivative 
+			  multiplier*/
+  double C_l_p_m;      /* tail roll damping moment derivative multiplier */
 
   double Ktb_alpha; /* interference factor of tail in presence of the body 
 		     for C_N_alpha */
   double Ktb_delta; /* interference factor of tail in presence of the body 
 		       for C_l_delta */
   double Kbt;
+  double Krb;       /* roll damping interference factor */
 
-  double C_N_alpha_tb;
-  double C_N_alpha_bt;
-  double C_l_delta_tb;
+  /* these should also be multiply by C_N_alpha_1 to get the coefficients */
+  double C_N_alpha_tb_m;
+  double C_N_alpha_bt_m;
+  double C_l_delta_tb_m;
+  double C_l_p_tb_m;
 
 } fin_t;
 
@@ -55,10 +71,18 @@ typedef struct _body_part_t
   body_enum_t type; /* type of body part */
   double d;         /* diameter */
   double l;         /* length */
+  double m;  /* mass of the part */
 
   /* calculation results */
-  double A; /* area of the part */
-  double V; /* volume of the part */
+  double A;  /* area of the part */
+  double V;  /* volume of the part */
+
+  double Xof; /* distance of the beginning of the part from nose tip */
+  double Xcg;
+  /* moments of inertia about axis passing trough the cg of the part */
+  double Ix;
+  double Iy; /* Iy = Iz for body parts (symmetry of rotation) */ 
+
 
 } body_part_t;
 
@@ -79,16 +103,30 @@ typedef struct _body_t
 typedef struct _rocket_t
 {
   char *name;
-  float Lr; /* maximum diameter of the rocket */
-  float Ar; /* reference area */
-  
-  body_t body;
 
+  int n_mach; /* number of points in the values table */
+  double *mach;
+
+  float Lr;  /* maximum diameter of the rocket */
+  float Ar;  /* reference area */
+  float m;   /* total mass of the rocket */
+  float Xcg; /* position of the center of gravity */
+
+  body_t body;
   int n_fin_set;
   fin_t *fin_set;
 
-  double C_N_alpha; /* total normal force coefficient derivative */
-  double X; /* center of pressure location for the whole rocket */
+
+  /* calculated values (table as a function of the mach  number) */
+
+  double *X;         /* center of pressure location for the whole rocket */
+  double *C_N_alpha; /* total normal force coefficient derivative */
+  double *C_mq;      /* pitch damping moment coefficient derivative */
+  double *C_m_alpha; /* pitch forcing moment coefficient derivative */
+
+  /* ???? should they be here */
+  double C_l_p;
+  double C_l_delta;
 
 } rocket_t;
 

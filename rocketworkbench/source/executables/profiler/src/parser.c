@@ -32,7 +32,7 @@ int read_value(Data *d, rocket_t *r)
     }
     else
     {
-      printf("Length units used are: %s\n", str);
+      /*printf("Length units used are: %s\n", str);*/
       if ((strcmp(str, "m") == 0) || (strcmp(str, "meter") == 0))
       {
 	length_convert = 1.0;
@@ -47,7 +47,7 @@ int read_value(Data *d, rocket_t *r)
 	       "Values are assumed to be in meter.\n");
 	length_convert = 1.0;
       }
-
+      free(str);
     }
 
     if (GPCP_GetValue("mass_units", &str) != 0)
@@ -58,7 +58,7 @@ int read_value(Data *d, rocket_t *r)
     }
     else
     {
-      printf("Mass units used are  : %s\n", str);  
+      /*printf("Mass units used are  : %s\n", str);*/
       if (strcmp(str, "kg") == 0)
       {
 	mass_convert = 1.0;
@@ -73,6 +73,7 @@ int read_value(Data *d, rocket_t *r)
 	       "Values are assumed to be in kilograms.\n");
 	mass_convert = 1.0;
       }
+      free (str);
     }
   }
 
@@ -93,9 +94,21 @@ int read_value(Data *d, rocket_t *r)
       }
       else
       {
-	printf("Rocket name : %s\n", r->name);
+	/*printf("Rocket name : %s\n", r->name);*/
       }
       
+      if (GPCP_GetValue("cg", &float_val) != 0)
+      {
+	printf("Rocket cg position not specified.\n");
+      }
+      else
+      {
+	r->Xcg = float_val;
+	/*printf("cg position : % f\n", r->Xcg);*/
+      }
+
+
+
       m = GPCP_NumParent("body");
       for (j = 0; j < m; j++)
       {
@@ -117,6 +130,8 @@ int read_value(Data *d, rocket_t *r)
 	  }
 	  else
 	  {
+	    /*printf("Type : %s\n", type);*/
+
 	    if (strcmp(type, "ogive_nose") == 0)
 	    {
 	      if (r->body.n_body_parts != 1)
@@ -155,6 +170,9 @@ int read_value(Data *d, rocket_t *r)
 	    }
 	    else if (strcmp(type, "tube") == 0)
 	    {
+
+	      /*printf("Here is the tube...\n");*/
+
 	      if (r->body.n_body_parts == 1)
 	      {
 		printf("The first part should be a nose.\n");
@@ -176,7 +194,9 @@ int read_value(Data *d, rocket_t *r)
 	    else
 	    {
 	      printf("Unknown type of body part.\n");
-	    } 
+	    }
+
+	    free(type);
 	  }
 
 	  if (GPCP_GetValue("length", &float_val) != 0)
@@ -185,7 +205,7 @@ int read_value(Data *d, rocket_t *r)
 	  else
 	  {
 	    part->l = float_val * length_convert;
-	    printf("Length is : %f (m)\n", float_val * length_convert);
+	    /*printf("Length is : %f (m)\n", float_val * length_convert);*/
 	  }
 
 	  if (GPCP_GetValue("diameter", &float_val) != 0)
@@ -195,7 +215,7 @@ int read_value(Data *d, rocket_t *r)
 	  else
 	  {
 	    part->d = float_val * length_convert;
-	    printf("Diameter is : %f (m)\n", float_val * length_convert);
+	    /*printf("Diameter is : %f (m)\n", float_val * length_convert);*/
 	    if (part->d > r->Lr) 
 	      r->Lr = part->d;
 	  }
@@ -205,9 +225,17 @@ int read_value(Data *d, rocket_t *r)
 	  }
 	  else
 	  {
-	    printf("Density is : %f\n", float_val);
+	    /*printf("Density is : %f\n", float_val);*/
 	  }
 
+	  if (GPCP_GetValue("mass", &float_val) != 0)
+	  {
+	  }
+	  else
+	  {
+	    part->m = float_val;
+	    /*printf("Density is : %f\n", float_val);*/
+	  }
 
 	}
 	GPCP_ExitLevel();
