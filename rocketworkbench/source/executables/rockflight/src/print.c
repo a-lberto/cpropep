@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include "librockflight/include/state.h"
 
+void print_function(function_t *f);
+
 void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
 {
-  int i, j, k;
+  int i, j;
   double propellant_mass = 0.0;
   double rocket_mass = 0.0;
+
+  engine_t *e;
   
   printf("---------------------------------------------\n");
   printf("             SOLUTION SUMMARY\n");
@@ -65,22 +69,18 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
            (*rocket).stage_properties[i].Diameter);
     printf("  |->Dry mass               : %.2e kg\n",
            (*rocket).stage_properties[i].dry_mass);
-    printf("  |->Ix                     : %.2e kg\n",
-           (*rocket).stage_properties[i].Ix);
-    printf("  |->Iy                     : %.2e kg\n",
-           (*rocket).stage_properties[i].Iy);
-    printf("  |->Iz                     : %.2e kg\n",
-           (*rocket).stage_properties[i].Iz);
+
+    print_function(&(*rocket).stage_properties[i].Ix);
+    print_function(&(*rocket).stage_properties[i].Iy);
+    print_function(&(*rocket).stage_properties[i].Iz);
+    
     printf("  |->Active time            : %.2e s\n",
            (*rocket).stage_properties[i].active_time);
 
-/*    printf("   Aerodynamic properties.\n"); */
-    printf("  |->Drag coefficient       : %.2e\n",
-           (*rocket).stage_properties[i].Cdrag);
-    printf("  |->Lift coefficient       : %.2e\n",
-           (*rocket).stage_properties[i].Clift);
-    printf("  |->Beta coefficient       : %.2e\n",
-           (*rocket).stage_properties[i].Cbeta);
+    print_function(&(*rocket).stage_properties[i].Cd);
+    print_function(&(*rocket).stage_properties[i].CL);
+    print_function(&(*rocket).stage_properties[i].CB);
+    
     printf("  |->Cross spin coefficient : %.2e\n",
            (*rocket).stage_properties[i].Cspin);
     printf("  |->Moment coefficient     : %.2e\n",
@@ -92,47 +92,22 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
 	   (*rocket).stage_properties[i].n_engine);
     for (j = 0; j < (*rocket).stage_properties[i].n_engine; j++)
     {
-	 printf("  |->Engine %d\n", j);
-	 printf("     |->Propellant mass    : %.2e\n",
-		(*rocket).stage_properties[i].engines[j].propellant_mass);
-	 printf("     |->Dry mass           : %.2e\n",
-		(*rocket).stage_properties[i].engines[j].dry_mass);
-	 printf("     |->Start time         : %.2e\n",
-		(*rocket).stage_properties[i].engines[j].start_time);
-	 printf("     |->Burn time          : %.2e\n",
-		(*rocket).stage_properties[i].engines[j].burn_time);
-	 printf("     |->Drop time          : %.2e\n",
-		(*rocket).stage_properties[i].engines[j].drop_time);
-	 printf("     |->Position           : (%.2e, %.2e, %.2e)\n",
-		(*rocket).stage_properties[i].engines[j].position[0],
-		(*rocket).stage_properties[i].engines[j].position[1],
-		(*rocket).stage_properties[i].engines[j].position[2]);
-	 printf("     |->Direction          : (%.2e, %.2e, %.2e)\n",
-		(*rocket).stage_properties[i].engines[j].direction[0],
-		(*rocket).stage_properties[i].engines[j].direction[1],
-		(*rocket).stage_properties[i].engines[j].direction[2]);
-	 printf("     |->Thrust type        : ");
-	 switch((*rocket).stage_properties[i].engines[j].thrust_type)
-	 {
-	 case _CONSTANT:
-	   printf("Constant\n");
-	   printf("     |->Thrust             : %.2e\n",
-		  *(*rocket).stage_properties[i].engines[j].thrust);
-	   break;
-	 case _FUNCTION:
-	   printf("Function (%d points)\n", 
-		  (*rocket).stage_properties[i].engines[j].n_point);
-	   for (k = 0; k < (*rocket).stage_properties[i].engines[j].n_point;
-		k++)
-	   {
-	     printf("                             (%.2e, %.2e)\n",
-		   *((*rocket).stage_properties[i].engines[j].time+k),
-		   *((*rocket).stage_properties[i].engines[j].thrust+k));
-	   }
-	   break;
-	 }
-    }
+      e = (*rocket).stage_properties[i].engines + j;
+      
+      printf("  |->Engine %d\n", j);
+      printf("     |->Propellant mass    : %.2e\n", e->propellant_mass);
+      printf("     |->Dry mass           : %.2e\n", e->dry_mass);
+      printf("     |->Start time         : %.2e\n", e->start_time);
+      printf("     |->Burn time          : %.2e\n", e->burn_time);
+      printf("     |->Drop time          : %.2e\n", e->drop_time);
+      printf("     |->Position           : (%.2e, %.2e, %.2e)\n",
+             e->position[0], e->position[1], e->position[2]);
+      printf("     |->Direction          : (%.2e, %.2e, %.2e)\n",
+             e->direction[0], e->direction[1], e->direction[2]);
 
+      print_function(&(e->thrust));
+    }
+    
     printf("\n"); 
   }
   printf("---------------------------------------------\n");
@@ -140,6 +115,56 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
   printf("---------------------------------------------\n");
 }
 
+
+void print_function(function_t *f)
+{
+  int i;
+  
+  /*printf("     |->%s type        : ", f->name);*/
+  
+  switch (f->type)
+  {
+    case _CONSTANT:
+        /*printf("Constant\n");*/
+        printf("     |->%s             : %.2e\n",
+               f->name, f->constant_value);
+          break;
+        break;
+        
+    case _TABLE:
+        printf("     |->%s             : ", f->name);
+        printf("Table (%d points) function of ",  f->n_point);
+        
+        switch (f->independant_var)
+        {
+          case TIME:
+              printf("time.\n");
+              break;
+          case ALT:
+              printf("altitude.\n");
+              break;
+          case MACH:
+              printf("mach number.\n");
+              break;
+          case AOA:
+              printf("angle of attack.\n");
+          default:
+              break;
+        }
+        
+        for (i = 0; i < f->n_point; i++)
+        {
+          printf("                             (%.2e, %.2e)\n",
+                 f->x[i], f->y[i]);
+        }
+        break;
+        
+    case _FUNCTION:
+        break;
+        
+  }
+  
+}
 
 void print_octave_results(double *ans, const int neq, const int n)
 {

@@ -16,7 +16,7 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
 
   int n;
   
-  double time;
+  //double time;
   float init_cond[12];
 
   int neq = 12;
@@ -41,22 +41,22 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
 
 
   /* in kg */
-  r->state.m = 16.0; 
+  //r->state.m = 16.0; 
 
-  r->state.Ix = 0.0025;
-  r->state.Iy = 0.84;
-  r->state.Iz = 0.84;
+  //r->state.Ix = 0.0025;
+  //r->state.Iy = 0.84;
+  //r->state.Iz = 0.84;
   
   /* aerodynamic coefficients */
   
-  r->state.Cdrag    = 0.2;
-  r->state.Clift    = 2.3;
-  r->state.Cbeta    = 2.3;
-  r->state.Cspin    = 20.0;
-  r->state.Cmoment  = 6.32;
-  r->state.Cdamping = 31.6;
+  //r->state.Cdrag    = 0.2;
+  //r->state.Clift    = 2.3;
+  //r->state.Cbeta    = 2.3;
+  //r->state.Cspin    = 20.0;
+  //r->state.Cmoment  = 6.32;
+  //r->state.Cdamping = 31.6;
   
-  r->state.D = 0.1143;
+  //r->state.D = 0.1143;
   
   r->state.Faero[0] = 0;
   r->state.Faero[1] = 0;
@@ -91,7 +91,7 @@ int simulate(rocket_t *r, solution_t *sol, float *ic, double **ans)
   init_cond[10] = theta;   /* theta */
   init_cond[11] = psi;     /* psi */
 
-  time = 0;
+  //time = 0;
   
   n = NUM_rkf (eom, neq, sol->dt, sol->duration, init_cond, ans,
                sol->precision, r);

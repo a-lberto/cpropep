@@ -9,13 +9,15 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 
 #include "gpcp.h"
 #include "librockflight/include/state.h"
 
 int get_point_value(char *name, float *point);
-int load_data(char *file, float **x, float **y, int *n);
+int load_data(char *file, float **x, float **y, int *n, parameter_t *p);
+int load_function_data(function_t *f, char *constant_name, char *table_name);
 
 Options rockflight_options[] = {
   {"simulation",          PARENT,   NULL},
@@ -39,11 +41,17 @@ Options rockflight_options[] = {
 
   {"dry_mass",            FLOAT,   "stage"}, 
   {"Ix",                  FLOAT,   "stage"},
-  {"Iy",                  FLOAT,   "stage"},      
-  {"Iz",                  FLOAT,   "stage"},       
-  {"Cdrag",               FLOAT,   "stage"},  
-  {"Clift",               FLOAT,   "stage"},   
-  {"Cbeta",               FLOAT,   "stage"},   
+  {"Ix_data_file",        STRING,  "stage"},
+  {"Iy",                  FLOAT,   "stage"},
+  {"Iy_data_file",        STRING,  "stage"},
+  {"Iz",                  FLOAT,   "stage"},
+  {"Iz_data_file",        STRING,  "stage"},
+  {"Cd",                  FLOAT,   "stage"},
+  {"Cd_data_file",        STRING,  "stage"},
+  {"CL",                  FLOAT,   "stage"},
+  {"CL_data_file",        STRING,  "stage"},
+  {"CB",                  FLOAT,   "stage"},
+  {"CB_data_file",        STRING,  "stage"},
   {"Cspin",               FLOAT,   "stage"},
   {"Cmoment",             FLOAT,   "stage"},
   {"Cdamping",            FLOAT,   "stage"},
@@ -83,14 +91,16 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
   int i, j;
   int n, m;
 
-  int status;
+  /*  int status; */
 
-  char *type;
-  char *filename;
+  /*char *type;*/
+  /*char *filename;*/
   float *val;
      
   engine_t *engine;
-
+  
+  function_t *f;
+  
   if (GPCP_EnterLevel("simulation", 0) == -1)
   {
     printf("Error: no simulation to execute in config file.\n");
@@ -209,29 +219,29 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
           if (GPCP_GetValue ("dry_mass", val) != 0)
             *val = 0.0;
 
-          val = &(*rocket).stage_properties[i].Ix;
-          if (GPCP_GetValue ("Ix", val) != 0)
-            *val = 0.0;
+          f = &(*rocket).stage_properties[i].Ix;
+          if (load_function_data(f, "Ix", "Ix_data_file"))
+            return -1;
 
-          val = &(*rocket).stage_properties[i].Iy;
-          if (GPCP_GetValue ("Iy", val) != 0)
-            *val = 0.0;
+          f = &(*rocket).stage_properties[i].Iy;
+          if (load_function_data(f, "Iy", "Iy_data_file"))
+            return -1;
 
-          val = &(*rocket).stage_properties[i].Iz;
-          if (GPCP_GetValue ("Iz", val) != 0)
-            *val = 0.0;
-
-          val = &(*rocket).stage_properties[i].Cdrag;
-          if (GPCP_GetValue ("Cdrag", val) != 0)
-            *val = 0.0;
-
-          val = &(*rocket).stage_properties[i].Clift;
-          if (GPCP_GetValue ("Clift", val) != 0)
-            *val = 0.0;
-
-          val = &(*rocket).stage_properties[i].Cbeta;
-          if (GPCP_GetValue ("Cbeta", val) != 0)
-            *val = 0.0;
+          f = &(*rocket).stage_properties[i].Iz;
+          if (load_function_data(f, "Iz", "Iz_data_file"))
+            return -1;
+          
+          f = &(*rocket).stage_properties[i].Cd;
+          if (load_function_data(f, "Cd", "Cd_data_file"))
+            return -1;
+            
+          f = &(*rocket).stage_properties[i].CL;
+          if (load_function_data(f, "CL", "CL_data_file"))
+            return -1;
+          
+          f = &(*rocket).stage_properties[i].CB;
+          if (load_function_data(f, "CB", "CB_data_file"))
+            return -1;
 
           val = &(*rocket).stage_properties[i].Cspin;
           if (GPCP_GetValue ("Cspin", val) != 0)
@@ -278,7 +288,12 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
               /* set a temporary pointer */
               engine = 
                 &((*rocket).stage_properties[i].engines[j]);
-			       
+
+              f = &(engine->thrust);
+              if (load_function_data(f, "thrust", "thrust_data_file"))
+                return -1;
+              
+              /*
               if (GPCP_GetValue("type", &type) != 0)
               {
                 printf("Type of thrust must be specified.\n");
@@ -288,43 +303,44 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
               {
                 if (strcmp("constant_thrust", type) == 0)
                 {
-                  engine->thrust_type = _CONSTANT;
+                  engine->thrust.type = _CONSTANT;
                 }
-                else if (strcmp("thrust_vs_time", type) == 0)
+                else if (strcmp("thrust_table_data", type) == 0)
                 {
-                  engine->thrust_type = _FUNCTION;
+                  engine->thrust.type = _TABLE;
                 }
                 else
                 {
-                  printf("Undefined type of thrust.\n");
+                  printf("Undefined type of thrust : %s.\n", type);
                   return -1;
                 }
                 free(type);
               }
-             
-              switch (engine->thrust_type)
+              */
+              /*
+              switch (engine->thrust.type)
               {
 				    
                 case _CONSTANT:
-                    engine->time = NULL;
-                    engine->thrust = 
-                      (float *) malloc(sizeof(float));
-                  
-                    val = engine->thrust;
+                    engine->thrust.x = NULL;
+                    engine->thrust.y = NULL;
+                    
+                    val = &(engine->thrust.constant_value);
                     if (GPCP_GetValue("thrust", val) != 0)
                       *val = 0.0;
                     break;
                   
-                case _FUNCTION:
+                case _TABLE:
                   
                     if (GPCP_GetValue("thrust_data_file",
                                       &filename) 
                         == 0)
                     {
                       status = load_data(filename, 
-                                         &(engine->time), 
-                                         &(engine->thrust), 
-                                         &(engine->n_point)
+                                         &(engine->thrust.x), 
+                                         &(engine->thrust.y), 
+                                         &(engine->thrust.n_point),
+                                         &(engine->thrust.independant_var)
                                          );
                        
                       if (status != 0)
@@ -335,8 +351,12 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
                       free(filename);
                     }
                     break;
+                    
+                case _FUNCTION:
+                    printf("Functions are not supported yet.\n");
+                    break;
               }
-
+            */
 
               val = &(engine->propellant_mass);
               if (GPCP_GetValue("propellant_mass", val) != 0)
@@ -501,7 +521,7 @@ int read_file(char *config_file, rocket_t *rocket, float *init_cond,
   return 0;
 }
 
-int load_data(char *file, float **x, float **y, int *n)
+int load_data(char *file, float **x, float **y, int *n, parameter_t *p)
 {
   int i;
   FILE *fd;
@@ -516,8 +536,29 @@ int load_data(char *file, float **x, float **y, int *n)
     printf("Unable to open file: %s.\n", file);
     return -1;
   }
-  printf("Reading data file...\n");
+  printf("Reading data file (%s)...\n", file);
 
+  /* read the first line containing the independant variable name */
+  retval = fgets(line, 128, fd);
+  /* find the \n and replace it by \0 */
+  retval = strchr(line, '\n');
+  if (retval != NULL)
+    *retval = '\0';
+  
+  if      (strcmp("ALT", line) == 0)
+    *p = ALT;
+  else if (strcmp("MACH", line) == 0)
+    *p = MACH;
+  else if (strcmp("AOA", line) == 0)
+    *p = AOA;
+  else if (strcmp("TIME", line) == 0)
+    *p = TIME;
+  else
+  {
+    printf("Unknown independant variable : %s.\n", line);
+    return -1;
+  }
+  
   retval = fgets(line, 128, fd);
   *x = NULL;
   *y = NULL;
@@ -559,3 +600,39 @@ int load_data(char *file, float **x, float **y, int *n)
   return 0;
 }
 
+
+int load_function_data(function_t *f, char *constant_name, char *table_name)
+{
+
+  int status;
+  char *filename;
+  float *val;
+
+  f->name = (char *) malloc(sizeof(char) * (strlen(constant_name) + 1));
+  strcpy(f->name, constant_name);
+                            
+  if (GPCP_GetValue(table_name, &filename) == 0)
+  {
+    status = load_data(filename, &(f->x), &(f->y), 
+                       &(f->n_point), &(f->independant_var));
+    
+    if (status != 0)
+    {
+      printf("Error reading data file.\n");
+      return -1;
+    }
+    f->type = _TABLE;
+    free(filename);
+  }
+  else
+  {
+    f->type = _CONSTANT;
+    f->x = NULL;
+    f->y = NULL;
+    val = &(f->constant_value);
+    if (GPCP_GetValue (constant_name, val) != 0)
+      *val = 0.0;
+  }
+
+  return 0;
+}
