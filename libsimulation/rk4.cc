@@ -74,7 +74,7 @@ int rk4_solver::solve(double *st, double duration, double step)
   memory = 1; 
 
   // fill the ans array
-  rk4 ( (ModelFunc_t)md, neq, step, duration, st, ans); 
+  rk4 ( (ModelFunc_t)md, neq, step, duration, st, ans, NULL); 
   return length;
 }
 
