@@ -1,0 +1,29 @@
+WGS-84 modeling constants:
+
+Semi-major axis
+a = 6378137.0 m
+
+Semi-minor axis
+b = 6356732.3142 m = a/(1-f)
+
+Flattening of ellipsoid
+f = 1.0/298.2572235630
+
+Eccentricity of ellipsoid
+e = 0.081819191 = (2f-f^2)^0.5
+
+2nd zonal harmonic coeff. of gravitational potential
+C2,0 = - 484.16685 x 10^-6
+
+Earth's gravitational const. (with mass of atmosphere)
+GM = 0.3986004418 x 10^15 m3/s2
+
+Earth's angular velocity at equator
+omega = 7292115 x 10^-11 radians/sec
+
+
+
+Centimeter accuracy correction to this model:
+http://www.nima.mil/GandG/wgs-84/egm96.html
+
+
