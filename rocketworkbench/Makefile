@@ -19,6 +19,8 @@ profile: TYPE="profile"
 profile: all
 
 all:
+	@mkdir -p lib
+	@mkdir -p bin
 	@echo "Building sources in" $(TYPE) "mode."
 	@$(MAKE) --no-print-directory -C source all
 
