@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <math.h>
-#include "num.h"
+#include "libnum/include/num.h"
 
 
 int NUM_rk4(int (*f)(int neq, double time, double *y, double *dy, void *data), 
-            int neq, double step, double duration, double *ic, 
+            int neq, double step, double duration, float *ic, 
             double **y, void *data)
 {
   int i;
@@ -36,7 +36,7 @@ int NUM_rk4(int (*f)(int neq, double time, double *y, double *dy, void *data),
   
   for (i = 0; i < neq; i++)
   {
-    tmp[i] = a[i + neq*0] = ic[i]; /* initials conditions */
+    tmp[i] = a[i + neq*0] = (double) ic[i]; /* initials conditions */
   }
  
   for (n = 0; n < Round(duration/step); n++)

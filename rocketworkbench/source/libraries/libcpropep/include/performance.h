@@ -2,7 +2,7 @@
 #ifndef performance_h
 #define performance_h
 
-#include "compat.h"
+#include "libcompat/include/compat.h"
 #include "return.h"
 
 #include "equilibrium.h"

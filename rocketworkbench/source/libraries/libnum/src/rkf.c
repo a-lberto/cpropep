@@ -2,7 +2,7 @@
 #include <math.h>
 #include <float.h>
 
-#include "num.h"
+#include "libnum/include/num.h"
 
 /* neq:      number of equations
  * step:     initial time step
@@ -16,13 +16,12 @@
 /* Runge-Kutta-Fehlberg 4-5 order */
  
 int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data), 
-            int neq, double step, double duration, double *ic, 
+            int neq, double step, double duration, float *ic, 
             double **y, double epsil, void *data)
 {
-  int i;
-  int n;
-
+  int i, n;
   int col;
+  int status;
   
   double h;
   double t = 0.0;
@@ -61,8 +60,9 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
   
   for (i = 0; i < neq; i++)
   {
-    tmp[i] = a[i + col*0] = ic[i]; /* initial conditions */
+    tmp[i] = a[i + col*0] = (double) ic[i]; /* initial conditions */
   }
+  a[neq] = t;
   
   while (t < duration)
   {  
@@ -70,7 +70,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
     
     for (i = 0; i < neq; i++)
     {
-      f(neq, t, tmp, dy, data);
+      status = f(neq, t, tmp, dy, data);
       K1[i] = h * dy[i];
       
       tmp[i] = a[i + col*n] + K1[i]/4.0;  /* for the next step */          
@@ -78,7 +78,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
       
     for (i = 0; i < neq; i++)
     {
-      f(neq, t + h/4.0, tmp, dy, data);
+      status = f(neq, t + h/4.0, tmp, dy, data);
       K2[i] = h * dy[i];
 
       tmp[i] = a[i + col*n] + 3.0*K1[i]/32.0 + 9.0*K2[i]/32.0;
@@ -87,7 +87,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
 
     for (i = 0; i < neq; i++)
     {
-      f(neq, t + 3.0*h/8.0, tmp, dy, data);
+      status = f(neq, t + 3.0*h/8.0, tmp, dy, data);
       K3[i] = h * dy[i];
 
       tmp[i] = a[i + col*n] + 1932.0*K1[i]/2197.0 - 7200.0*K2[i]/2197.0 +
@@ -97,7 +97,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
     
     for (i = 0; i < neq; i++)
     {
-      f(neq, t + 12.0*h/13.0, tmp, dy, data);
+      status = f(neq, t + 12.0*h/13.0, tmp, dy, data);
       K4[i] = h * dy[i];
       
       tmp[i] = a[i + col*n] + 439.0*K1[i]/216.0 - 8.0*K2[i] +
@@ -106,7 +106,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
 
     for (i = 0; i < neq; i++)
     {
-      f(neq, t + h, tmp, dy, data);
+      status = f(neq, t + h, tmp, dy, data);
       K5[i] = h * dy[i];
       
       tmp[i] = a[i + col*n] - 8.0*K1[i]/27.0 + 2.0*K2[i] -
@@ -115,7 +115,7 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
     
     for (i = 0; i < neq; i++)
     {
-      f(neq, t + h/2.0, tmp, dy, data);
+      status = f(neq, t + h/2.0, tmp, dy, data);
       K6[i] = h * dy[i];
     }
 
@@ -124,11 +124,11 @@ int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data),
     {
       E[i] = fabs(K1[i]/360.0 - 128.0*K3[i]/4275.0 - 2197.0*K4[i]/75240.0 +
                    K5[i]/50.0 + 2.0*K6[i]/55.0); /* /h ?? */
-      //printf("E[%d] = %f\n", i, E[i]);
+      /*printf("E[%d] = %f\n", i, E[i]);*/
       err = ((E[i] > err) ? E[i] : err);      
     }
 
-    //printf("err = %e\n", err);
+    /*printf("err = %e\n", err);*/
 
     if ((err < epsil) || (h <= step/1000) )
     {

@@ -1,0 +1,4 @@
+LIB    = -lconvert -lm  
+PROG   = test-libconvert
+OBJS   = test.o
+

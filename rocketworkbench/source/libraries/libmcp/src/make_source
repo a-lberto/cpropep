@@ -1,0 +1,2 @@
+LIBNAME = libmcp.a
+LIBOBJS = mcp.o

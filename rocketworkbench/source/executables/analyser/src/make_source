@@ -1,0 +1,3 @@
+LIB  = -lnum -lconvert -lgpcp -lm
+PROG = analyser
+OBJS = analyser.o

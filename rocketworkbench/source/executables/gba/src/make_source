@@ -1,0 +1,3 @@
+LIB  = -lm 
+PROG = grain
+OBJS = gba.o grain.o shape.o output.o 

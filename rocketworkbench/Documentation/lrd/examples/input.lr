@@ -1,0 +1,14 @@
+
+Propellant
++oxidant 686   Oxygene  
++fuel    673   Octane
++o/f     2.55   O/F ratio
+
+
+Parameter
++chamber_pressure 500 psi  The chamber pressure
++thrust          30000  N    The thrust we are looking for
++L*               45   in   The characteristic chamber length
++Dc/Dt            2.34        Chamber diameter / Throat diameter
++theta            20    deg  Convergent half angle
++r_rt            1.5

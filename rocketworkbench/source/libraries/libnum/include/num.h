@@ -58,7 +58,7 @@ typedef struct status
  *    october 20, 2000 revision of the permutation method
  */
 int NUM_lu(double *matrix, double *solution, int neq);
-//int old_lu(double *matrix, double *solution, int neq);
+/*int old_lu(double *matrix, double *solution, int neq);*/
 
 /* This function print the coefficient of the matrix to
  * the screen. 
@@ -111,11 +111,11 @@ AUTHOR: Antoine Lefebvre
 DATE: February 11
 *****************************************************************/
 int NUM_rk4(int (*f)(int neq, double time, double *y, double *dy, void *data), 
-            int neq, double step, double duration, double *ic, 
+            int neq, double step, double duration, float *ic, 
             double **y, void *data );
 
 int NUM_rkf(int (*f)(int neq, double time, double *y, double *dy, void *data), 
-            int neq, double step, double duration, double *ic, 
+            int neq, double step, double duration, float *ic, 
             double **y, double epsil, void *data);
 
 /* this function return the nearest integer to a */

@@ -1,0 +1,2 @@
+LIBNAME = libconvert.a
+LIBOBJS = convert.o

@@ -1,0 +1,42 @@
+
+ROOT = ../../../..
+
+include $(ROOT)/config/makedef
+
+
+LIB  = -lnum -lm
+LIBDIR = -L$(ROOT)/lib/
+INCDIR = -I$(ROOT)/source/libraries/libnum/include/
+
+DEF = -DLINUX
+
+PROG = test
+OBJS = test.o
+
+LIBOBJS = lu.o rk4.o rkf.o general.o print.o sec.o newton.o ptfix.o\
+          sysnewton.o trapeze.o simpson.o spline.o
+
+LIBNUM = libnum.a
+
+all: $(LIBNUM) $(PROG)
+
+.c.o:
+	@echo $<
+	$(CC) $(DEF) $(INCDIR) $(COPT) -c $< -o $@
+
+$(LIBNUM): $(LIBOBJS)
+	ar -r $@ $(LIBOBJS) 
+	ranlib $@
+	mv $(LIBNUM) $(ROOT)/lib/
+
+
+$(PROG): $(LIBNUM) $(OBJS) 
+	$(CC) $(COPT) $(OBJS) $(LIBDIR) $(LIB) -o $@
+
+
+clean:
+	@rm -f $(PROG) *.o *~
+
+deep-clean: clean
+	rm -f $(ROOT)/lib/$(LIBNUM)
+

@@ -1,0 +1,7 @@
+This is cpropep version 1.0, a program for determining the
+theoretical performance of rocket propellant compositions.
+Cpropep is released under the GPL and is written in ANSI C.
+
+Run this example using 
+    cpropep -f input.pro
+

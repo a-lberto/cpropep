@@ -11,40 +11,46 @@
 #include <string.h>
 #include <math.h>
 #include <malloc.h>
-//#include <time.h>
+/*#include <time.h>*/
 
+/*
 #ifdef GCC
 #include <unistd.h>
 #else
-#include "getopt.h"
-#endif
+*/
+#include "libcompat/include/getopt.h"
+/*#endif
+*/
 
-#include "load.h"
-#include "equilibrium.h"
-#include "performance.h"
-#include "derivative.h"
-#include "thermo.h"
+#include "libthermo/include/load.h"
+#include "libthermo/include/thermo.h"
 
-#include "print.h"
+#include "libcpropep/include/equilibrium.h"
+#include "libcpropep/include/performance.h"
+#include "libcpropep/include/derivative.h"
+#include "libcpropep/include/print.h"
+#include "libcpropep/include/conversion.h"
+#include "libcpropep/include/return.h"
 
-#include "conversion.h"
-#include "compat.h"
-#include "return.h"
+#include "libcompat/include/compat.h"
 
 #define version "1.0"
 #define date    "10/07/2000"
 
-//#define CHAMBER_MSG     "Time spent for computing chamber equilibrium"
-//#define FROZEN_MSG      "Time spent for computing frozen performance"
-//#define EQUILIBRIUM_MSG "Time spent for computing equilibrium performance"
+/*
+#define CHAMBER_MSG     "Time spent for computing chamber equilibrium"
+#define FROZEN_MSG      "Time spent for computing frozen performance"
+#define EQUILIBRIUM_MSG "Time spent for computing equilibrium performance"
+*/
 
 #ifndef CONF_FILE
 #define CONF_FILE "cpropep.conf"
 #endif
 
-
-//#undef TIME
-//#define TIME(function, msg) function;
+/*
+#undef TIME
+#define TIME(function, msg) function;
+*/
 
 #define MAX_CASE 10
 
@@ -369,7 +375,7 @@ int main(int argc, char *argv[])
 
   double exit_pressure;
 
-//  clock_t timer;
+/*  clock_t timer;*/
 
   char variable[64];
   char path[FILENAME_MAX];
@@ -442,7 +448,7 @@ int main(int argc, char *argv[])
             printf("Filename too long!\n");
             break;
           }
-          strncpy (filename, optarg, FILENAME_MAX);
+          strncpy (filename, optarg, FILENAME_MAX - 1);
 
           if ( (errorfile = fopen (filename, "w")) == NULL )
             return (ERROR);

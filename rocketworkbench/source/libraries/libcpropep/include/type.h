@@ -6,7 +6,7 @@
 #define MAX_COMP     20 /* Maximum different ingredient in
                            composition */
 
-#include "compat.h"
+#include "libcompat/include/compat.h"
 
 /****************************************************************
 TYPE:  Enumeration of the possible state of a substance
@@ -146,7 +146,7 @@ typedef struct _new_equilibrium
   bool properties_ok;   /* true if the properties have been compute  */
   bool performance_ok;  /* true if the performance have been compute */
 
-  //temporarily
+  /*temporarily*/
   double entropy;
   
   iteration_var_t    itn;

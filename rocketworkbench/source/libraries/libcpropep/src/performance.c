@@ -11,15 +11,15 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "performance.h"
-#include "derivative.h"
-#include "print.h"
-#include "equilibrium.h"
+#include "libcpropep/include/performance.h"
+#include "libcpropep/include/derivative.h"
+#include "libcpropep/include/print.h"
+#include "libcpropep/include/equilibrium.h"
+#include "libcpropep/include/const.h"
+#include "libcpropep/include/return.h"
 
-#include "const.h"
-#include "compat.h"
-#include "return.h"
-#include "thermo.h"
+#include "libcompat/include/compat.h"
+#include "libthermo/include/thermo.h"
 
 #define TEMP_ITERATION_MAX  8
 #define PC_PT_ITERATION_MAX 5
@@ -175,7 +175,7 @@ int frozen_performance(equilibrium_t *e, exit_condition_t exit_type,
             PC_PT_ITERATION_MAX);
   }
   
-  //printf("%d iterations to evaluate throat pressure.\n", i);
+  /*printf("%d iterations to evaluate throat pressure.\n", i);*/
   
   t->properties.P    = e->properties.P/pc_pt;
   t->performance.Isp = t->properties.Vson = sound_velocity;
@@ -277,7 +277,7 @@ int frozen_performance(equilibrium_t *e, exit_condition_t exit_type,
               PC_PE_ITERATION_MAX);
     }
     
-    //printf("%d iterations to evaluate exit pressure.\n", i);
+    /*printf("%d iterations to evaluate exit pressure.\n", i); */
     
     pc_pe            = exp(log_pc_pe);
     exit_pressure    = e->properties.P/pc_pe;
@@ -408,7 +408,7 @@ int shifting_performance(equilibrium_t *e, exit_condition_t exit_type,
             " Don't thrust results.\n", PC_PT_ITERATION_MAX);
   }
   
-  //printf("%d iterations to evaluate throat pressure.\n", i);
+  /*printf("%d iterations to evaluate throat pressure.\n", i);*/
 
   t->properties.P    = e->properties.P/pc_pt;
   t->properties.Vson = sound_velocity;
@@ -511,7 +511,7 @@ int shifting_performance(equilibrium_t *e, exit_condition_t exit_type,
               " Don't thrust results.\n", PC_PE_ITERATION_MAX);
     }
     
-    //printf("%d iterations to evaluate exit pressure.\n", i);
+    /*printf("%d iterations to evaluate exit pressure.\n", i);*/
     
     pc_pe            = exp(log_pc_pe);
     exit_pressure    = e->properties.P/pc_pe;

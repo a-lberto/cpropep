@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "num.h"
+#include "libnum/include/num.h"
 
 int NUM_newton(double (*f)(double x), double (*df)(double x), double x0,
                int nmax, double eps, double *ans)

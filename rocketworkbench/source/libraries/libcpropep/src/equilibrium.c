@@ -12,16 +12,15 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "num.h" /* matrix solution */
+#include "libnum/include/num.h" /* matrix solution */
 
-#include "print.h"
-#include "equilibrium.h"
+#include "libcpropep/include/print.h"
+#include "libcpropep/include/equilibrium.h"
+#include "libcpropep/include/conversion.h"
+#include "libcpropep/include/return.h"
 
-#include "conversion.h"
-#include "compat.h"
-#include "return.h"
-
-#include "thermo.h" /* thermodynamics function */
+#include "libcompat/include/compat.h"
+#include "libthermo/include/thermo.h" /* thermodynamics function */
 
 /* Initial temperature estimate for problem with not-fixed temperature */
 #define ESTIMATED_T 3800
@@ -713,7 +712,7 @@ int remove_condensed(short *size, short *n, equilibrium_t *e)
         
       (p->n[CONDENSED])--;
       
-      //(*size)--; /* reduce the size of the matrix */
+      /*(*size)--;  reduce the size of the matrix */
       r = 1;
     }
     else if ( !(temperature_check(p->species[CONDENSED][i], pr->T)) )
@@ -737,7 +736,7 @@ int remove_condensed(short *size, short *n, equilibrium_t *e)
                  ((thermo_list + p->species[CONDENSED][i])->elem[k] ==
                   (thermo_list + p->species[CONDENSED][j])->elem[k] ) &&
                  (p->species[CONDENSED][i] != p->species[CONDENSED][j])));
-          //temperature_check(p->species[CONDENSED][j], pr->T) ))
+          /*temperature_check(p->species[CONDENSED][j], pr->T) ))*/
           {
             ok = 0;
           }
@@ -1077,7 +1076,7 @@ int equilibrium(equilibrium_t *equil, problem_t P)
      species. */
   if (!(equil->product.isequil))
   {
-//    equil->product.n_condensed = equil->product.n[CONDENSED];
+/*    equil->product.n_condensed = equil->product.n[CONDENSED];*/
     equil->product.n[CONDENSED] = 0;
     equil->itn.n = 0.1; /* initial estimate of the mol number */
   }
@@ -1168,7 +1167,7 @@ int equilibrium(equilibrium_t *equil, problem_t P)
         fprintf(outputfile,
                 "The solution converge in %-2d iterations (%.2f degK)\n",
                 k+1, equil->properties.T);
-        //fprintf(outputfile, "T = %f\n", equil->T);
+        /*fprintf(outputfile, "T = %f\n", equil->T);*/
       }
       gas_reinserted = false;
 
@@ -1234,17 +1233,17 @@ int equilibrium(equilibrium_t *equil, problem_t P)
   
   if (k == ITERATION_MAX)
   {
-    //fprintf(outputfile, "\n");
-    //fprintf(outputfile, "Maximum number of %d iterations attain\n",
-    //        ITERATION_MAX);
-    //fprintf(outputfile, "Don't thrust results.\n"); 
+    /*fprintf(outputfile, "\n");
+      fprintf(outputfile, "Maximum number of %d iterations attain\n",
+              ITERATION_MAX);
+      fprintf(outputfile, "Don't thrust results.\n"); */
     return ERR_EQUILIBRIUM;
   }
   else if (stop)
   {
-    //fprintf(outputfile, "\n");
-    //fprintf(outputfile, "Problem computing equilibrium...aborted.\n");
-    //fprintf(outputfile, "Don't thrust results.\n");
+    /*fprintf(outputfile, "\n");
+      fprintf(outputfile, "Problem computing equilibrium...aborted.\n");
+      fprintf(outputfile, "Don't thrust results.\n");*/
     return ERR_EQUILIBRIUM;
   }
 

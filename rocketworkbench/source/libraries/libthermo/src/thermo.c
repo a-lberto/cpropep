@@ -14,9 +14,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#include "thermo.h"
-#include "compat.h"
-#include "conversion.h"
+#include "libthermo/include/thermo.h"
+#include "libcompat/include/compat.h"
+#include "libcpropep/include/conversion.h"
 
 /**************************************************************
 These variables hold the number of records for propellant and thermo data

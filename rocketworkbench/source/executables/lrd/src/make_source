@@ -1,0 +1,3 @@
+LIB  = -lcpropep -lthermo -lnum -llrd -lm  
+PROG = lrd
+OBJS = main.o lrd_load.o 

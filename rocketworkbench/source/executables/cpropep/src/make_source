@@ -1,0 +1,5 @@
+LIB    = -lcpropep -lthermo -lnum -lm  
+DEF    = -DGCC -DCONF_FILE=\"/etc/rocketworkbench/cpropep.conf\"
+PROG   = cpropep
+OBJS   = cpropep.o
+

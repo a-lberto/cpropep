@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "num.h"
+#include "libnum/include/num.h"
 
 #define OUT_OF_RANGE -1
 

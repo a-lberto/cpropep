@@ -1,0 +1,1281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Burning analysis of star configuration</TITLE>
+<META NAME="description" CONTENT="Burning analysis of star configuration">
+<META NAME="keywords" CONTENT="star">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="star.css">
+
+</HEAD>
+
+<BODY >
+
+<P>
+
+<H1 ALIGN=CENTER>Burning analysis of star configuration</H1>
+<P ALIGN=CENTER><STRONG>Antoine Lefebvre</STRONG></P>
+<P ALIGN=LEFT></P>
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html19"
+  HREF="star.html">Contents</A>
+<LI><A NAME="tex2html20"
+  HREF="star.html#SECTION00020000000000000000">Introduction</A>
+<LI><A NAME="tex2html21"
+  HREF="star.html#SECTION00030000000000000000">Geometric definition</A>
+<LI><A NAME="tex2html22"
+  HREF="star.html#SECTION00040000000000000000">Analysis</A>
+<UL>
+<LI><A NAME="tex2html23"
+  HREF="star.html#SECTION00041000000000000000">Zone 1</A>
+<LI><A NAME="tex2html24"
+  HREF="star.html#SECTION00042000000000000000">Zone 2</A>
+<LI><A NAME="tex2html25"
+  HREF="star.html#SECTION00043000000000000000">Zone 3</A>
+<LI><A NAME="tex2html26"
+  HREF="star.html#SECTION00044000000000000000">Zone 4</A>
+</UL>
+<LI><A NAME="tex2html27"
+  HREF="star.html#SECTION00050000000000000000">Design example</A>
+<LI><A NAME="tex2html28"
+  HREF="star.html#SECTION00060000000000000000">conclusion</A>
+<LI><A NAME="tex2html29"
+  HREF="star.html#SECTION00070000000000000000">Bibliography</A>
+<LI><A NAME="tex2html30"
+  HREF="star.html#SECTION00080000000000000000">About this document ...</A>
+</UL>
+<!--End of Table of Contents-->
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+The design of solid propellant grain that provide neutral burning
+is important to optimize rocket motor performance. The star
+configuration have been widely used to achieve this goal. In this
+report, I will present an analysis of the burning comportement of star
+shape as well as parameter recommandation to achieve better
+performance.
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+Geometric definition</A>
+</H1>
+
+<P>
+The star could be characterize by seven independant variable as
+defined in figure <A HREF="star.html#star">2</A>. As every star points are identical,
+only one is necessary for the analysis. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="variable"></A><A NAME="12"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Geometric definition of star.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[height=5in]{img/variable.ps}$
+ -->
+<IMG
+ WIDTH="498" HEIGHT="401" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.gif"
+ ALT="\includegraphics[height=5in]{img/variable.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.gif"
+ ALT="$\displaystyle w$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;Web thickness</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\displaystyle r_1$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;Radius</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$\displaystyle r_2$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;Tip radius</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="18" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$\displaystyle R$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;External radius</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$\displaystyle \eta$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;angle</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.gif"
+ ALT="$\displaystyle \varepsilon$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;Secant fillet angle</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="20" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.gif"
+ ALT="$\displaystyle N$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.gif"
+ ALT="$\displaystyle =$">&nbsp; &nbsp;Number of star points</TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="star"></A><A NAME="28"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Burning zone of the star configuration.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[height=4in]{img/mainstar.ps}$
+ -->
+<IMG
+ WIDTH="516" HEIGHT="392" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.gif"
+ ALT="\includegraphics[height=4in]{img/mainstar.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+Analysis</A>
+</H1>
+
+<P>
+In this section, an expression for the perimeter of the star will be
+developp for each burning zone as a function of the web thickness
+burned (<IMG
+ WIDTH="25" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.gif"
+ ALT="$ w_x$">).
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+Zone 1</A>
+</H2>
+
+<P>
+The perimeter in the zone one could be divide in three
+  sections. Starting by the right, we have the section before the
+  radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$ r_1$">, which have a radius equal to <IMG
+ WIDTH="94" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.gif"
+ ALT="$ R-w+w_x$">. The length of
+  this section is then: <!-- MATH
+ $(R-w+w_x)(\pi/N - \varepsilon)$
+ -->
+<IMG
+ WIDTH="185" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.gif"
+ ALT="$ (R-w+w_x)(\pi/N - \varepsilon)$">.
+
+<P>
+Then, we have the perimeter of the arc of initial radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$ r_1$">. The
+  angle will remain constant to <IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ a$">. The length is then: <!-- MATH
+ $(r_1+w_x)a$
+ -->
+<IMG
+ WIDTH="85" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.gif"
+ ALT="$ (r_1+w_x)a$">.
+
+<P>
+The third section is more complicated. The lenght of the line
+  starting at the end of the radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$ r_1$"> and crossing the vertical
+  line will be evaluated first. Then, the perimeter of the radius
+  <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.gif"
+ ALT="$ r_2$"> will be add to the result, and the length of the line starting
+  at the beginning of the radius will be substract.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="len"></A><A NAME="37"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Determination of the length <IMG
+ WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$ L$">.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[height=5in]{img/starL.ps}$
+ -->
+<IMG
+ WIDTH="255" HEIGHT="529" ALIGN="BOTTOM" BORDER="0"
+ SRC="img19.gif"
+ ALT="\includegraphics[height=5in]{img/starL.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+In order to determine the length, refer to the figure <A HREF="star.html#len">3</A>. The
+  lenght <IMG
+ WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$ L$"> we are looking for will be equal <IMG
+ WIDTH="45" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.gif"
+ ALT="$ x + y$">.
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="42" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.gif"
+ ALT="$\displaystyle b + z$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="156" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.gif"
+ ALT="$\displaystyle = (R-w-r_1)\sin{\varepsilon}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img23.gif"
+ ALT="$\displaystyle x$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="134" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img24.gif"
+ ALT="$\displaystyle = (r_1+w_x)\tan{\eta}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="40" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.gif"
+ ALT="$\displaystyle \cos{\eta}$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="84" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img26.gif"
+ ALT="$\displaystyle = \frac{r_1+w_x}{z}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="38" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img27.gif"
+ ALT="$\displaystyle \sin{\eta}$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="36" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img28.gif"
+ ALT="$\displaystyle = \frac{b}{y}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="38" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img27.gif"
+ ALT="$\displaystyle \sin{\eta}$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="225" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img29.gif"
+ ALT="$\displaystyle = \frac{(R-w-r_1)\sin{\varepsilon} - \frac{r_1+w_x}{\cos{\eta}}}{y}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="80" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img30.gif"
+ ALT="$\displaystyle L = y + x$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="388" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
+ SRC="img31.gif"
+ ALT="$\displaystyle = (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}} - \frac{r_1+w_x}{\cos{\eta}\sin{\eta}} + (r_1+w_x)\tan{\eta}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+We could now simplify this equation using two trigonometric
+  identity:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="76" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img32.gif"
+ ALT="$\displaystyle \sin^2{\eta} -1$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="82" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img33.gif"
+ ALT="$\displaystyle = -\cos^2{\eta}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="42" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img34.gif"
+ ALT="$\displaystyle \tan{\eta}$"></TD>
+<TD NOWRAP ALIGN="LEFT"><IMG
+ WIDTH="111" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="img35.gif"
+ ALT="$\displaystyle = \frac{1}{\tan{(\frac{\pi}{2}-\eta)}}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+  L &= (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}} +
+             (r_1+w_x)\left[
+             \frac{\sin^2{\eta}-1}{\cos{\eta}\sin{\eta}} \right]\\
+      &= (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}} + 
+             (r_1+w_x)\left[ \frac{-\cos{\eta}}{\sin{\eta}} \right]\\
+      &= (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}} + 
+             (r_1+w_x)\left[ \frac{-1}{\tan{\eta}} \right]\\
+      &= (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}} - 
+             (r_1+w_x)\tan{(\frac{\pi}{2}-\eta)}\\
+\end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="356" HEIGHT="191" BORDER="0"
+ SRC="img36.gif"
+ ALT="\begin{displaymath}\begin{split}L &amp;= (R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta...
+...sin{\eta}} - (r_1+w_x)\tan{(\frac{\pi}{2}-\eta)}\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+We could now determine the length of the arc and how much we should
+ substract from the length L. Refer to figure <A HREF="star.html#arc">4</A> for the
+ variables.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="arc"></A><A NAME="96"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Arc of radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.gif"
+ ALT="$ r_2$">.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[height=3in]{img/arc.ps}$
+ -->
+<IMG
+ WIDTH="201" HEIGHT="283" ALIGN="BOTTOM" BORDER="0"
+ SRC="img37.gif"
+ ALT="\includegraphics[height=3in]{img/arc.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+\text{Arc length} = (r_2-wx)(\frac{\pi}{2}-\eta)
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+Arc length<IMG
+ WIDTH="154" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img38.gif"
+ ALT="$\displaystyle = (r_2-wx)(\frac{\pi}{2}-\eta)$">
+</DIV><P></P>
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+x = \frac{r_2-wx}{\tan{\eta}}
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="101" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img39.gif"
+ ALT="$\displaystyle x = \frac{r_2-wx}{\tan{\eta}}$">
+</DIV><P></P>
+
+<P>
+We have now the complete expression of the perimeter of the star as a
+ function of web burned (<IMG
+ WIDTH="25" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.gif"
+ ALT="$ w_x$">) in the zone one. This expression is
+ valid for <!-- MATH
+ $0 < w_x < r_2$
+ -->
+<IMG
+ WIDTH="96" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img40.gif"
+ ALT="$ 0 &lt; w_x &lt; r_2$">.
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+  \frac{S}{2N} &= (R-w+w_x)(\frac{\pi}{N} - \varepsilon) +
+                  (r_1+w_x)a+(R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}}\\
+               & \quad - (r_1+w_x)\tan{(\frac{\pi}{2}-\eta)}
+               + (r_2-w_x)(\frac{\pi}{2}-\eta) \\
+               & \quad - (r_2-wx)\tan{(\frac{\pi}{2}-\eta)}\\
+               &= (R-w+w_x)(\frac{\pi}{N} - \varepsilon) +
+                  (r_1+w_x)a+(R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}}\\
+               & \quad - (r_1+r_2)\tan{(\frac{\pi}{2}-\eta)}
+               + (r_2-w_x)(\frac{\pi}{2}-\eta)\\
+  \end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="473" HEIGHT="204" BORDER="0"
+ SRC="img41.gif"
+ ALT="\begin{displaymath}\begin{split}\frac{S}{2N} &amp;= (R-w+w_x)(\frac{\pi}{N} - \varep...
+...c{\pi}{2}-\eta)} + (r_2-w_x)(\frac{\pi}{2}-\eta)\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(2)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+We could now determined the first derivative of this expression to
+  evaluate if it is progressive, regressive or neutral.
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\frac{\delta S}{\delta w_x} = 2N\left[ \frac{\pi}{N} - \varepsilon + a -
+  \frac{\pi}{2} + \eta \right]
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="251" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img42.gif"
+ ALT="$\displaystyle \frac{\delta S}{\delta w_x} = 2N\left[ \frac{\pi}{N} - \varepsilon + a - \frac{\pi}{2} + \eta \right]$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+We could verify that:
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+a = \frac{\pi}{2} - \eta + \varepsilon
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="111" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img43.gif"
+ ALT="$\displaystyle a = \frac{\pi}{2} - \eta + \varepsilon$">
+</DIV><P></P>
+
+<P>
+Our expression become:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\frac{\delta S}{\delta w_x} = 2\pi
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="80" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img44.gif"
+ ALT="$\displaystyle \frac{\delta S}{\delta w_x} = 2\pi$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(4)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+The perimeter in zone 1 will always be progressive. So, it is
+  important to minimize the radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.gif"
+ ALT="$ r_2$"> in order to switch as fast as
+  possible to the zone 2.
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+Zone 2</A>
+</H2>
+
+<P>
+The expression for the perimeter in the second zone is almost the
+  same as in the zone one. The difference is that the radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.gif"
+ ALT="$ r_2$"> had
+  vanish and the expression reduce to a simpler one:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+  \frac{S}{2N} &= (R-w+w_x)(\frac{\pi}{N} - \varepsilon) +
+                 (r_1+w_x)a+(R-w-r_1)\frac{\sin{\varepsilon}}{\sin{\eta}}\\
+               & \quad - (r_1+w_x)\tan{(\frac{\pi}{2}-\eta)}\\
+ \end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="473" HEIGHT="83" BORDER="0"
+ SRC="img45.gif"
+ ALT="\begin{displaymath}\begin{split}\frac{S}{2N} &amp;= (R-w+w_x)(\frac{\pi}{N} - \varep...
+...\  &amp; \quad - (r_1+w_x)\tan{(\frac{\pi}{2}-\eta)}\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(5)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+The derivative of this expression is:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+   \frac{\delta S}{\delta w_x} &= 2N\left[ \frac{\pi}{N} -\varepsilon +
+                                  a - \tan{(\frac{\pi}{2} - \eta)} \right]\\
+                               &= 2N\left[ \frac{\pi}{2} - \eta +
+                                  \frac{\pi}{N} - \tan{(\frac{\pi}{2}
+                                  - \eta)} \right]\\
+  \end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="289" HEIGHT="83" BORDER="0"
+ SRC="img46.gif"
+ ALT="\begin{displaymath}\begin{split}\frac{\delta S}{\delta w_x} &amp;= 2N\left[ \frac{\p...
+...c{\pi}{N} - \tan{(\frac{\pi}{2} - \eta)} \right]\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(6)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+As we could see in this expression, the progressivity in zone 2 is
+  determined by the angle <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> and by the number of star point
+  <IMG
+ WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.gif"
+ ALT="$ N$">. It is independant of the angle <!-- MATH
+ $\varepsilon$
+ -->
+<IMG
+ WIDTH="13" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.gif"
+ ALT="$ \varepsilon$">.
+
+<P>
+The zone 2 will be predominant during the motor burn time and we
+  would like to provide neutrallity in this zone. Neutrality is obtain
+  when the derivative of the perimeter is equal to zero. This lead to
+  the following equation:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\frac{\delta S}{\delta w_x} = 0 = \frac{\pi}{2} - \eta +
+                                   \frac{\pi}{N} - \tan{(\frac{\pi}{2}
+                                   - \eta)}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="287" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.gif"
+ ALT="$\displaystyle \frac{\delta S}{\delta w_x} = 0 = \frac{\pi}{2} - \eta + \frac{\pi}{N} - \tan{(\frac{\pi}{2} - \eta)}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(7)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+Which reduce to the following implicit equation of <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> as a
+  function of <IMG
+ WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.gif"
+ ALT="$ N$">:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\eta = \frac{\pi}{N} - \tan{(\frac{\pi}{2} - \eta)} + \frac{\pi}{2}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="200" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img51.gif"
+ ALT="$\displaystyle \eta = \frac{\pi}{N} - \tan{(\frac{\pi}{2} - \eta)} + \frac{\pi}{2}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(8)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+Solution of this equation give values of the angle <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> to obtain
+  neutrality in zone 2 as a function of the number of star points.
+
+<P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.gif"
+ ALT="$ N$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> (deg)</TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="39" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img52.gif"
+ ALT="$ \pi/N$"> (deg)</TD>
+</TR>
+<TR><TD ALIGN="CENTER">3</TD>
+<TD ALIGN="CENTER">24.55</TD>
+<TD ALIGN="CENTER">60.00</TD>
+</TR>
+<TR><TD ALIGN="CENTER">4</TD>
+<TD ALIGN="CENTER">28.22</TD>
+<TD ALIGN="CENTER">45.00</TD>
+</TR>
+<TR><TD ALIGN="CENTER">5</TD>
+<TD ALIGN="CENTER">31.13</TD>
+<TD ALIGN="CENTER">36.00</TD>
+</TR>
+<TR><TD ALIGN="CENTER">6</TD>
+<TD ALIGN="CENTER">33.53</TD>
+<TD ALIGN="CENTER">30.00</TD>
+</TR>
+<TR><TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">35.56</TD>
+<TD ALIGN="CENTER">25.71</TD>
+</TR>
+<TR><TD ALIGN="CENTER">8</TD>
+<TD ALIGN="CENTER">37.31</TD>
+<TD ALIGN="CENTER">22.50</TD>
+</TR>
+<TR><TD ALIGN="CENTER">9</TD>
+<TD ALIGN="CENTER">38.84</TD>
+<TD ALIGN="CENTER">20.00</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+It is important to note that when the angle <!-- MATH
+ $\eta < \pi/N$
+ -->
+<IMG
+ WIDTH="71" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img53.gif"
+ ALT="$ \eta &lt; \pi/N$">, a secant
+  fillet <!-- MATH
+ $\varepsilon < \pi/N$
+ -->
+<IMG
+ WIDTH="70" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img54.gif"
+ ALT="$ \varepsilon &lt; \pi/N$"> will be necessary to prevent star point
+  from overlapping. In general, <!-- MATH
+ $\varepsilon$
+ -->
+<IMG
+ WIDTH="13" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.gif"
+ ALT="$ \varepsilon$"> should always be smaller
+  that <IMG
+ WIDTH="39" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img52.gif"
+ ALT="$ \pi/N$">.
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+Zone 3</A>
+</H2>
+
+<P>
+The perimeter in the zone 3 begin when <IMG
+ WIDTH="71" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img55.gif"
+ ALT="$ w_x = Y*$">. The angle <IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ a$">
+  become progressivly smaller when propellant burned. Perimeter could
+  be expressed like this:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\frac{S}{2N} = (R-w+w_x)(\frac{\pi}{N}-\varepsilon) +
+               (r_1+w_x)\left[ \varepsilon +
+               \arcsin{(\frac{R-w-r_1}{r_1+w_x}\sin{\varepsilon}}) \right]
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="550" HEIGHT="58" ALIGN="MIDDLE" BORDER="0"
+ SRC="img56.gif"
+ ALT="$\displaystyle \frac{S}{2N} = (R-w+w_x)(\frac{\pi}{N}-\varepsilon) + (r_1+w_x)\left[ \varepsilon + \arcsin{(\frac{R-w-r_1}{r_1+w_x}\sin{\varepsilon}}) \right]$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(9)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+The derivative of this expression become:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+\frac{\delta S}{\delta w_x} &= 2N \biggl[ \frac{\pi}{N}  +
+       \arcsin{\biggl(\frac{R-w-r_1}{r_1+w_x}\sin{\varepsilon}\biggr)} - \\
+      &\quad  \frac{w_x(R-w-r_1)\sin{\varepsilon}}{(r_1+w_x)^2\sqrt{1-\frac{(R-w-r_1)^2\sin^2{\varepsilon}}{(r_1+w_x)^2}}} \biggr]\\
+\end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="339" HEIGHT="110" BORDER="0"
+ SRC="img57.gif"
+ ALT="\begin{displaymath}\begin{split}\frac{\delta S}{\delta w_x} &amp;= 2N \biggl[ \frac{...
+..._1)^2\sin^2{\varepsilon}}{(r_1+w_x)^2}}} \biggr]\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(10)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+It could be demonstrate that the perimeter is progressive in this
+  section. It would be interesting to eliminate the zone 3 in order to
+  keep neutrality as long as possible.
+
+<P>
+The condition for the elimination of zone 3 is:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+Y* = (R-w-r_1)\frac{\sin{\varepsilon}}{\cos{\eta}} - r_1 = w
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="260" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
+ SRC="img58.gif"
+ ALT="$\displaystyle Y* = (R-w-r_1)\frac{\sin{\varepsilon}}{\cos{\eta}} - r_1 = w$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(11)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+This equation reduce to:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\sin{\varepsilon} = \frac{w+r_1}{R-w-r_1}\cos{\eta}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="187" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.gif"
+ ALT="$\displaystyle \sin{\varepsilon} = \frac{w+r_1}{R-w-r_1}\cos{\eta}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(12)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+Now, the angle <!-- MATH
+ $\varepsilon$
+ -->
+<IMG
+ WIDTH="13" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.gif"
+ ALT="$ \varepsilon$"> is determine by the web thickness <IMG
+ WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.gif"
+ ALT="$ w$">,
+  the radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$ r_1$"> and the angle <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$">. As <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> was determine by
+  the number of star points <IMG
+ WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.gif"
+ ALT="$ N$"> and the radius may be dictate by
+  technical decision, the web thickness <IMG
+ WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.gif"
+ ALT="$ w$"> will determine
+  <!-- MATH
+ $\varepsilon$
+ -->
+<IMG
+ WIDTH="13" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.gif"
+ ALT="$ \varepsilon$">.
+
+<P>
+
+<H2><A NAME="SECTION00044000000000000000">
+Zone 4</A>
+</H2>
+
+<P>
+The analytical solution of the perimeter in the zone 4 could be
+  found with the help of the cosinus law:
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation*}
+c^2 = a^2 + b^2 - 2ab\cos{\theta}
+\end{equation*}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="180" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.gif"
+ ALT="$\displaystyle c^2 = a^2 + b^2 - 2ab\cos{\theta}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+The perimeter is then:
+<P></P>
+<DIV ALIGN="CENTER"><!-- MATH
+ \begin{equation}
+\begin{split}
+\frac{S}{2N} = (r_1+w_x) \biggl[ & \varepsilon +
+      \arcsin{\biggl(\frac{R-w-r_1}{r_1+w_x}\sin{\varepsilon}\biggr)}
+      - \pi\\
+      & \quad + \arccos{\biggl(\frac{(r_1+w_x)^2+(R-r_1-w)^2-R^2}{2(r_1+w_x)(R-r_1-w)}\biggr)}
+      \biggr]\\
+\end{split}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="501" HEIGHT="98" BORDER="0"
+ SRC="img62.gif"
+ ALT="\begin{displaymath}\begin{split}\frac{S}{2N} = (r_1+w_x) \biggl[ &amp; \varepsilon +...
+...1-w)^2-R^2}{2(r_1+w_x)(R-r_1-w)}\biggr)} \biggr]\\  \end{split}\end{displaymath}"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(13)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+Design example</A>
+</H1>
+
+<P>
+In this section, a star configuration will be design with the
+  theory developp in the previous sections for a motor of <IMG
+ WIDTH="47" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img63.gif"
+ ALT="$ 3 inch$">
+  internal diameter.
+
+<P>
+The goal is to have a perimeter that will remain as constant as
+  possible to mainatin neutrality. It will also be interesting to
+  minimize the number of star points in order to reduce the difficulty
+  to cast the propellant. We could also try to optimize the volumetric
+  loading.
+
+<P>
+First of all, we could determine the number of star points. In order
+  to maximize the quantity of matter, the angle <!-- MATH
+ $\varepsilon$
+ -->
+<IMG
+ WIDTH="13" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.gif"
+ ALT="$ \varepsilon$"> should
+  be equal to <IMG
+ WIDTH="39" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img52.gif"
+ ALT="$ \pi/N$">. In order to obtain this condition, the angle
+  <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> should be larger than <IMG
+ WIDTH="39" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img52.gif"
+ ALT="$ \pi/N$">. 
+
+<P>
+If we refer to the table of the angle <IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.gif"
+ ALT="$ \eta$"> in function of <IMG
+ WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.gif"
+ ALT="$ N$">, to
+  obtain neutrality in zone 2, we must choose <IMG
+ WIDTH="52" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img64.gif"
+ ALT="$ N=6$"> to have <!-- MATH
+ $\eta >
+\pi/N$
+ -->
+<IMG
+ WIDTH="71" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img65.gif"
+ ALT="$ \eta &gt;
+\pi/N$">.
+
+<P>
+Three conditions are now determine:
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+N = 6
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="52" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img66.gif"
+ ALT="$\displaystyle N = 6$">
+</DIV><P></P>
+<!-- MATH
+ \begin{displaymath}
+\eta = 33.53 deg
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="103" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img67.gif"
+ ALT="$\displaystyle \eta = 33.53 deg$">
+</DIV><P></P>
+<!-- MATH
+ \begin{displaymath}
+\varepsilon = 30 deg
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="79" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.gif"
+ ALT="$\displaystyle \varepsilon = 30 deg$">
+</DIV><P></P>
+
+<P>
+We must now found the web thickness <IMG
+ WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.gif"
+ ALT="$ w$"> and radius <IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$ r_1$"> that fit
+  the conditions. A radius <!-- MATH
+ $r_1 = 1/16 in$
+ -->
+<IMG
+ WIDTH="95" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img69.gif"
+ ALT="$ r_1 = 1/16 in$"> is reasonable technically.
+
+<P>
+The equation to be solve is the following:
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+sin{\varepsilon} = \frac{w+r_1}{R-w-r_1}\cos{\eta}
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="187" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.gif"
+ ALT="$\displaystyle \sin{\varepsilon} = \frac{w+r_1}{R-w-r_1}\cos{\eta}$">
+</DIV><P></P>
+
+<P>
+The value of <IMG
+ WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.gif"
+ ALT="$ w$"> that solve this equation is:
+
+<P>
+<!-- MATH
+ \begin{displaymath}
+w = 0.500
+\end{displaymath}
+ -->
+<P></P><DIV ALIGN="CENTER">
+<IMG
+ WIDTH="80" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img70.gif"
+ ALT="$\displaystyle w = 0.500$">
+</DIV><P></P>
+
+<P>
+The seven independant variable are now fixed. The resulting shape
+  could be seen in figure <A HREF="star.html#res">5</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="res"></A><A NAME="253"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Resulting star configuration for the 3 inch motor.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[]{img/res.ps}$
+ -->
+<IMG
+ WIDTH="348" HEIGHT="348" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.gif"
+ ALT="\includegraphics[]{img/res.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+With the functions developp in the report, the evolution of the
+  perimeter as a function of the web burned could be plot.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="grah"></A><A NAME="260"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Graphic of the perimeter as a function of web burned.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[height=4in]{img/perimeter.ps}$
+ -->
+<IMG
+ WIDTH="628" HEIGHT="447" ALIGN="BOTTOM" BORDER="0"
+ SRC="img72.gif"
+ ALT="\includegraphics[height=4in]{img/perimeter.ps}">
+      
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+conclusion</A>
+</H1>
+
+<P>
+The star configuration offer the possibility to design rocket motor
+that works at almost constant pressure. It is then possible to
+optimize on case thickness and throat diameter in order to obtain the best
+performance.
+
+<P>
+ 
+<H2><A NAME="SECTION00070000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="nasa">1</A>
+<DD> NASA SP-8076, <EM>Solid Propellant Grain Design And
+Internal Ballistics</EM>, March 1972
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Burning analysis of star configuration</STRONG><P>
+This document was generated using the
+<A HREF="http://www-texdev.mpce.mq.edu.au/l2h/docs/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.2beta8 (1.42)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-white -image_type gif -no_navigation -split 0 -dir html -mkdir star.tex</TT>
+<P>
+The translation was initiated by Antoine Lefebvre on 2001-07-12<BR><HR>
+<ADDRESS>
+Antoine Lefebvre
+2001-07-12
+</ADDRESS>
+</BODY>
+</HTML>

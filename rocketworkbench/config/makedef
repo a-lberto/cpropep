@@ -1,0 +1,13 @@
+CC          = gcc
+
+ifeq ($(TYPE),"debug")
+ COPT = -g -Wall
+else
+ ifeq ($(TYPE),"profile")
+  COPT = -g -Wall -O3 -pg
+ else
+  COPT =    -Wall -O3
+ endif
+endif
+
+COPT += -ansi

@@ -2,12 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "equilibrium.h"
-#include "load.h"
-#include "thermo.h"
+#include "libcpropep/include/equilibrium.h"
 
-#include "conversion.h"
-#include "return.h"
+#include "libthermo/include/load.h"
+#include "libthermo/include/thermo.h"
+
+#include "libcpropep/include/conversion.h"
+#include "libcpropep/include/return.h"
 
 
 /***************************************************************************
@@ -115,7 +116,7 @@ int load_thermo(char *filename)
 		strncpy((thermo_list + i)->comments, buf_ptr + 18, 55);
 		trim_spaces((thermo_list + i)->comments, 55);
       
-		// Read in the next line and check for EOF
+		/* Read in the next line and check for EOF */
 		if (!fgets(buf_ptr, 88, fd))
 		{
 			fclose(fd);
@@ -277,7 +278,7 @@ int load_thermo(char *filename)
 					tmp[16] = '\0';
 	    
 					(thermo_list + i)->param[j][l] = atof(tmp_ptr);
-          //(thermo_list + i)->param[j][l] = strtod(tmp_ptr, NULL);
+          /*(thermo_list + i)->param[j][l] = strtod(tmp_ptr, NULL);*/
         }
 	  
 				/* Get the third line of three */

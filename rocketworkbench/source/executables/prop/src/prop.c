@@ -2,15 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-
+/*
 #ifdef GCC
 #include <unistd.h>
 #else
-#include "getopt.h"
+*/
+#include "libcompat/include/getopt.h"
+/*
 #endif
-
-#include "thermo.h"
-#include "load.h"
+*/
+#include "libthermo/include/thermo.h"
+#include "libthermo/include/load.h"
 
 #define MAX_LINE 500
 #define ARG_LENGTH 32

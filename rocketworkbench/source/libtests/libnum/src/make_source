@@ -1,0 +1,4 @@
+LIB    = -lnum -lm  
+PROG   = test-libnum
+OBJS   = test.o
+

@@ -1,0 +1,13 @@
+
+Propellant
++108      78 g 
++788      11 g
++34       7 g
++a        0.001691711
++n        0.35
+
+Motor
++throat_diameter    0.00595376 m
++exit_diameter      0.0079502  m
++propellant_surface 0.0114 m2
+

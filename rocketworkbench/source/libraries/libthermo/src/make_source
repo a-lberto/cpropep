@@ -1,0 +1,2 @@
+LIBNAME = libthermo.a
+LIBOBJS = load.o thermo.o

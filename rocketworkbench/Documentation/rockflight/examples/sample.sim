@@ -1,0 +1,39 @@
+
+
+
+simulation = 
+  (initial_conditions = (u         = 400.0,
+			 v         = 0.0,
+			 w         = 0.0,
+			 P         = 0.0,
+			 Q         = 0.0,
+			 R         = 0.0,
+			 latitude  = 0.0,
+			 longitude = 0.0,
+			 altitude  = 1000.0,
+			 phi       = 0.0,
+			 theta     = 0.0,
+			 psi       = 0.0)
+  ,rocket = (nb_stage = 1,
+	     stage = (propellant_mass = 100.0,
+	              thrust          = 1000.0,
+	              Isp             = 300.0,
+	              start_time      = 0.0,
+	              burn_time       = 100.0,
+	              drop_time       = 0.0,
+	              dry_mass        = 50.0,
+	              Ix              = 0.02,
+	              Iy              = 0.002,
+	              Iz              = 0.002,
+	              Cdrag           = 1.0,
+	              Clift           = 1.0,
+	              Cbeta           = 1.0,
+	              Cspin           = 1.0,
+	              Cmoment         = 1.0,
+	              Cdamping        = 1.0,
+	              Diameter        = 0.5)
+            )
+  ,solution = (duration  = 5.0,
+               dt        = 0.01,
+               precision = 0.0001)
+  )

@@ -1,8 +1,8 @@
 #ifndef thermo_h
 #define thermo_h
 
-#include "equilibrium.h"
-#include "const.h"
+#include "libcpropep/include/equilibrium.h"
+#include "libcpropep/include/const.h"
 
 /* MACRO: Number of symbol in the symbol table */
 #define N_SYMB      102
@@ -194,7 +194,7 @@ COMMENTS: g = uo + ln(nj/n) + ln(P) for gazes
 
 AUTHOR: Antoine Lefebvre
 **************************************************************/
-//double gibbs(int sp, state_t st, double nj, double n, float T, float P);
+/*double gibbs(int sp, state_t st, double nj, double n, float T, float P);*/
 double gibbs(int sp, state_t st, double nj_n_n, float T, float P);
 
 

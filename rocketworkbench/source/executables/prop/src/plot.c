@@ -4,8 +4,8 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include "thermo.h"
-#include "load.h"
+#include "libthermo/include/thermo.h"
+#include "libthermo/include/load.h"
 
 
 int global_verbose = 0;

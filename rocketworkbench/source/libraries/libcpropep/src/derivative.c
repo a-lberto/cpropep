@@ -12,16 +12,17 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "num.h"
+#include "libnum/include/num.h"
 
-#include "derivative.h"
-#include "equilibrium.h"
-#include "performance.h"
-#include "thermo.h"
+#include "libcpropep/include/derivative.h"
+#include "libcpropep/include/equilibrium.h"
+#include "libcpropep/include/performance.h"
 
-#include "print.h"
-#include "compat.h"
-#include "return.h"
+#include "libcpropep/include/print.h"
+#include "libcpropep/include/return.h"
+
+#include "libcompat/include/compat.h"
+#include "libthermo/include/thermo.h"
 
 int fill_temperature_derivative_matrix(double *matrix, equilibrium_t *e);
 int fill_pressure_derivative_matrix(double *matrix, equilibrium_t *e);

@@ -8,7 +8,7 @@
 /*                                                                     */
 /* Licensed under the GPLv2                                            */
 
-#include "compat.h"
+#include "libcompat/include/compat.h"
 #include "type.h"
 
 #define GRAM_TO_MOL(g, sp)   g/propellant_molar_mass(sp)
@@ -103,7 +103,7 @@ COMMENTS: There is a different function for the product and for the
 AUTHOR:   Antoine Lefebvre
 ****************************************************************/
 int product_element_coef(int element, int molecule);
-//int propellant_element_coef(int element, int molecule);
+/*int propellant_element_coef(int element, int molecule);*/
 
 
 
@@ -122,13 +122,13 @@ AUTHOR:   Antoine Lefebvre
 ****************************************************************/
 
 
-//#ifdef TRUE_ARRAY
-//int fill_equilibrium_matrix(double *matrix, equilibrium_t *e, problem_t P);
+/*#ifdef TRUE_ARRAY*/
+/*int fill_equilibrium_matrix(double *matrix, equilibrium_t *e, problem_t P);*/
 int fill_matrix(double *matrix, equilibrium_t *e, problem_t P);
-//#else
-//int fill_equilibrium_matrix(double **matrix, equilibrium_t *e, problem_t P);
-//int fill_matrix(double **matrix, equilibrium_t *e, problem_t P);
-//#endif
+/*#else*/
+/*int fill_equilibrium_matrix(double **matrix, equilibrium_t *e, problem_t P);*/
+/*int fill_matrix(double **matrix, equilibrium_t *e, problem_t P);*/
+/*#endif*/
 
 
 /****************************************************************

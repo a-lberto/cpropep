@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "num.h"
+#include "libnum/include/num.h"
 
 int NUM_ptfix(double (*f)(double x), double x0, double nmax,
               double epsilon, double *ans)

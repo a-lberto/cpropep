@@ -1,0 +1,2 @@
+LIBNAME = libcpropep.a
+LIBOBJS = equilibrium.o print.o performance.o derivative.o

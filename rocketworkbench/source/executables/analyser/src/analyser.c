@@ -6,11 +6,11 @@
 #include <math.h>
 
 /* Numerical method library */
-#include "num.h"
+#include "libnum/include/num.h"
 /* Config file parser library */
-#include "gpcp.h"
+#include "gpcp/src/gpcp.h"
 /* Conversion library */
-#include "convert.h"
+#include "libconvert/include/convert.h"
 
 #include "analyser.h"
 
@@ -96,7 +96,7 @@ void print_results(results_t *res)
   printf("Specific impulse         : %.2f s\n", res->isp);
   printf("Propellant mass fraction : %.2f \n", res->prop_mass_fraction);
   printf("Impulse to weight ratio  : %.2f \n", res->impulse_to_weight);
-  // I will have to invert thrust and impulse in the definition
+  /* I will have to invert thrust and impulse in the definition*/
   printf("Motor classification     : %c-%d\n",
          'A' + (char) (log(res->max_thrust/2.5)/log(2)) + 1,
          (int) res->impulse);
@@ -109,14 +109,14 @@ int analyse_data(double *data, int n, results_t *res, format_t *f, motor_t *m)
   double integral;
   
   /* Calculation based on those data */
-  //double max_thrust;         /* Maximum thrust */
-  //double avg_thrust;         /* Mean thrust */
-  //double burn_time;          /* Burning time */
-  //double impulse;            /* Total impulse */
-  //double vg;                 /* Exhaust velocity */
-  //double isp;                /* Specific impulse */
-  //double prop_mass_fraction; /* Propellant mass fraction */
-  //double impulse_to_weight;  /* Impulse to weight ratio */
+  /*double max_thrust;*/         /* Maximum thrust */
+  /*double avg_thrust;*/         /* Mean thrust */
+  /*double burn_time;*/          /* Burning time */
+  /*double impulse;*/            /* Total impulse */
+  /*double vg;*/                 /* Exhaust velocity */
+  /*double isp;*/                /* Specific impulse */
+  /*double prop_mass_fraction;*/ /* Propellant mass fraction */
+  /*double impulse_to_weight;*/  /* Impulse to weight ratio */
 
   memset(res, 0x00, sizeof(results_t));
          
