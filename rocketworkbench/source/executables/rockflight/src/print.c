@@ -35,16 +35,16 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
 
   for (i = 0; i < (*rocket).n_stage; i++)
   {
-       /* engines contribution */
-       for (j = 0; j < (*rocket).stage_properties[i].n_engine; j++)
-       {
+    /* engines contribution */
+    for (j = 0; j < (*rocket).stage_properties[i].n_engine; j++)
+    {
 	    propellant_mass += 
-		 (*rocket).stage_properties[i].engines[j].propellant_mass;
+        (*rocket).stage_properties[i].engines[j].propellant_mass;
 	    rocket_mass += 
-		 (*rocket).stage_properties[i].engines[j].dry_mass;
-       }
-       /* stage structure and payload */
-       rocket_mass += (*rocket).stage_properties[i].dry_mass;
+        (*rocket).stage_properties[i].engines[j].dry_mass;
+    }
+    /* stage structure and payload */
+    rocket_mass += (*rocket).stage_properties[i].dry_mass;
   }
 
   printf("  Propellant mass : %.2e kg\n", propellant_mass);

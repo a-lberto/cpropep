@@ -26,7 +26,7 @@ extern int simulate(rocket_t *r, solution_t *s, float *ic, double **ans);
 int main(int argc, char *argv[])
 {
 
-  int n, c;
+  int n = 0, c;
   int neq = 12;
   
   /* hold the rocket properties */
@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 
 
   int debug = 0;
+  int check_only = 0;
+  
   int Lfileread = 0;
   char config_file[FILENAME_MAX];
 
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
   /* Read command line options */
   while (1)
   {
-    c = getopt(argc, argv, "dhf:");
+    c = getopt(argc, argv, "cdhf:");
 
     if (c == EOF)
       break;
@@ -64,6 +66,10 @@ int main(int argc, char *argv[])
           Lfileread = 1;
           break;
 
+      case 'c':
+          check_only = 1;
+          break;
+          
       case 'd':
           debug = 1;
           break;
@@ -92,10 +98,11 @@ int main(int argc, char *argv[])
 
   print_summary(&rocket, init_cond, &solution);
   
-  /* return 0; */
-  
-  /* solve the model */
-  n = simulate(&rocket, &solution, init_cond, &ans);
+  if (check_only)
+    check(&rocket, 300.0, 1.0);
+  else
+    /* solve the model */
+    n = simulate(&rocket, &solution, init_cond, &ans);
     
   fprintf(stderr, "Memory used: %d kB\n", n*(neq+1)*sizeof(double)/1024);
 
