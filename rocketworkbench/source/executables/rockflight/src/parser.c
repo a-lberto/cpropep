@@ -17,6 +17,7 @@
 #include "librockflight/include/state.h"
 
 int get_point_value(char *name, float *point);
+int load_data(char *file, float **x, float **y, int *n);
 
 Options rockflight_options[] = {
      {"simulation",          PARENT,   NULL},
@@ -78,12 +79,16 @@ Options rockflight_options[] = {
      {NULL,                  0,        NULL}
 };
 
-int load_data(Data *data, rocket_t *rocket, float *init_cond,
+int load_config(Data *data, rocket_t *rocket, float *init_cond,
               solution_t *solution)
 {
      int i, j;
      int n, m;
 
+     int status;
+
+     char *type;
+     char *filename;
      float *val;
      
      engine_t *engine;
@@ -275,10 +280,66 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
 		       	       /* set a temporary pointer */
 			       engine = 
 				   &((*rocket).stage_properties[i].engines[j]);
-			       /*
-			       if (GPCP_GetValue("type", val) != 0)
-				    *val = 0.0;
-				    */
+			       
+			       if (GPCP_GetValue("type", &type) != 0)
+			       {
+				 printf("Type of thrust must be specified.\n");
+				 return -1;
+			       }
+			       else
+			       {
+				    if (strcmp("constant_thrust", type) == 0)
+				    {
+					 engine->thrust_type = _CONSTANT;
+				    }
+				    else if (strcmp("thrust_vs_time", type) == 0)
+				    {
+					 engine->thrust_type = _FUNCTION;
+				    }
+				    else
+				    {
+					 printf("Undefined type of thrust.\n");
+					 return -1;
+				    }
+				    free(type);
+			       }
+
+			       switch (engine->thrust_type)
+			       {
+				    
+			       case _CONSTANT:
+				    engine->time = NULL;
+				    engine->thrust = 
+					 (float *) malloc(sizeof(float));
+				    
+				    val = engine->thrust;
+				    if (GPCP_GetValue("thrust", val) != 0)
+					 *val = 0.0;
+				    break;
+				    
+			       case _FUNCTION:
+
+				    if (GPCP_GetValue("thrust_data_file",
+						      &filename) 
+					== 0)
+				    {
+					 status = load_data(filename, 
+							    &(engine->time), 
+							    &(engine->thrust), 
+							    &(engine->n_point)
+					      );
+
+					 if (status != 0)
+					 {
+					  printf("Error reading data file.\n");
+					  return -1;
+					 }
+					 free(filename);
+				    }
+				    break;
+			       }
+
+
 			       val = &(engine->propellant_mass);
 			       if (GPCP_GetValue("propellant_mass", val) != 0)
 				    *val = 0.0;
@@ -287,15 +348,6 @@ int load_data(Data *data, rocket_t *rocket, float *init_cond,
 			       if (GPCP_GetValue("dry_mass", val) != 0)
 				    *val = 0.0;
 
-			       /*
-			       val = &(engine->thrust);
-			       if (GPCP_GetValue("thrust", val) != 0)
-				    *val = 0.0;
-				    */
-			       /*
-			       if (GPCP_GetValue("thrust_data_file", val) != 0)
-				    *val = 0.0;
-				    */
 			       val = &(engine->mass_flow);
 			       if (GPCP_GetValue("mass_flow", val) != 0)
 				    *val = 0.0;
@@ -439,7 +491,7 @@ int read_file(char *config_file, rocket_t *rocket, float *init_cond,
           return -1;
      }
 
-     if (load_data(data, rocket, init_cond, solution) != 0)
+     if (load_config(data, rocket, init_cond, solution) != 0)
      {
           printf("Error: unable to correctly load data.\n");
           return -1;
@@ -448,6 +500,64 @@ int read_file(char *config_file, rocket_t *rocket, float *init_cond,
      /* GPCP_PrintData(data); */
            
      GPCP_FreeData(&data);
+     return 0;
+}
+
+int load_data(char *file, float **x, float **y, int *n)
+{
+     int i;
+     FILE *fd;
+     char line[128];
+     char *retval;
+     int scan_status;
+
+     fd = fopen(file, "r");
+     
+     if (fd == NULL) 
+     {
+	  printf("Unable to open file: %s.\n", file);
+	  return -1;
+     }
+     printf("Reading data file...\n");
+
+     retval = fgets(line, 128, fd);
+     *x = NULL;
+     *y = NULL;
+     i = 0;
+     while (retval != NULL)
+     {
+	  if (line[0] != '#')
+	  {
+	       i++;
+	       
+	       *x = (float *) realloc(*x, sizeof(float)*i);
+	       if (*x == NULL)
+	       {
+		    printf("memory error.\n");
+		    return -1;
+	       }
+	       *y = (float *) realloc(*y, sizeof(float)*i);
+	       if (*y == NULL)
+	       {
+		    printf("memory error.\n");
+		    return -1;
+	       }
+	       
+	       scan_status = sscanf(line, "%f %f", *x+i-1, *y+i-1);
+
+	       if (scan_status != 2)
+	       {
+		    printf("Error reading file.\n");
+	       }
+	  }
+	  retval = fgets(line, 128, fd);	  
+     }
+
+     *n = i;
+
+     printf("... %d points read.\n", i);
+
+     fclose(fd);
      return 0;
 }
 
