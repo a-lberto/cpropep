@@ -5,7 +5,7 @@
 /* $Id$ */
 /* Copyright (C) 2000                                                  */
 /*    Antoine Lefebvre <antoine.lefebvre@polymtl.ca>                   */
-/*    Mark Pinese <ida.pinese@bushnet.qld.edu.au>                      */
+/*    Mark Pinese <pinese@cyberwizards.com.au>                      */
 /*                                                                     */
 /* Licensed under the GPLv2                                            */
 
@@ -25,9 +25,6 @@ unsigned long num_propellant, num_thermo;
 #define N_SYMB         102
 
 #define GRAM_TO_MOL(g, sp)   g/propellant_molar_mass(sp)
-
-//#define __min(a, b) ( (a) <= (b) ? (a) : (b))
-//#define __max(a, b) ( (a) >= (b) ? (a) : (b))
 
 #define _min(a, b, c) __min( __min(a, b), c)
 #define _max(a, b, c) __max( __max(a, b), c)
@@ -154,7 +151,8 @@ DATE: February 24, 2000
 typedef struct _equilibrium
 {
   unsigned int  verbose;      /* verbose level */
-
+  bool          short_output;
+  
   composition_t c; 
   product_t     p;
   
