@@ -95,18 +95,18 @@ int main(int argc, char *argv[])
     switch (c)
     {
       case 'f':
-	if (strlen(optarg) > FILENAME_MAX)
-        {
-	  printf("Filename too long!\n");
-	  return -1;
-	  break;
-	}
-	strncpy (filename, optarg, FILENAME_MAX);
-	break;
+          if (strlen(optarg) > FILENAME_MAX)
+          {
+            printf("Filename too long!\n");
+            return -1;
+            break;
+          }
+          strncpy (filename, optarg, FILENAME_MAX);
+          break;
     
       case 'h':
-	usage();
-	break;
+          usage();
+          break;
     } 
   }
   
@@ -159,6 +159,7 @@ int profile_rocket(rocket_t *r)
   fin_t *f;
 
   r->m = 0;
+  /* reference area of the rocket */
   r->Ar = M_PI * pow(r->Lr, 2)/4;
   
   r->n_mach = 20;
@@ -172,7 +173,8 @@ int profile_rocket(rocket_t *r)
 
   profile_fins(r);
   profile_body(r);
- 
+
+  /* tables in function of the mach number */
   r->X         = (double *) malloc(sizeof(double) * r->n_mach);
   r->C_N_alpha = (double *) malloc(sizeof(double) * r->n_mach);
   r->C_mq      = (double *) malloc(sizeof(double) * r->n_mach);
@@ -211,7 +213,7 @@ int profile_rocket(rocket_t *r)
       f = r->fin_set + n;
       
       r->C_mq[i] += 2 * f->C_N_alpha_tb_m *  f->C_N_alpha_1[i] *
-	pow((f->Xt - r->Xcg)/r->Lr, 2);
+        pow((f->Xt - r->Xcg)/r->Lr, 2);
     }
 
     r->C_m_alpha[i] = 0;
@@ -219,7 +221,7 @@ int profile_rocket(rocket_t *r)
     {
       f = r->fin_set + n;
       r->C_m_alpha[i] += f->C_N_alpha_tb_m *  f->C_N_alpha_1[i] *
-	(r->X[i] - r->Xcg) / r->Lr;
+        (r->X[i] - r->Xcg) / r->Lr;
     }
 
     /*
@@ -237,8 +239,8 @@ int profile_rocket(rocket_t *r)
   for (i = 0; i < r->n_mach; i++)
   {
     printf("M = %.2f -> C_N_alpha = %.3f, Cmq = %.3f, Cm_alpha = %.3f,"
-	   " X = %.2f\n",
-	   r->mach[i], r->C_N_alpha[i], r->C_mq[i], r->C_m_alpha[i], r->X[i]);
+           " X = %.2f\n",
+           r->mach[i], r->C_N_alpha[i], r->C_mq[i], r->C_m_alpha[i], r->X[i]);
   }
 
   return 0;
@@ -273,6 +275,14 @@ int profile_fins(rocket_t *r)
     xt = f->xt;
     s  = f->s;
 
+    /* add fin mass to the rocket mass */
+    r->m += f->N * f->m;
+
+    /* inertial properties */
+    f->Xcg = 0;
+    f->Ixx = 0;
+    f->Iyy = 0;
+    
     /* center of pressure of the fins */
     /* formula 3-27 */
     f->Yt = rt + (s/3)*(cr + 2*ct)/(cr + ct);
@@ -295,7 +305,6 @@ int profile_fins(rocket_t *r)
     /* cosine of the midchord sweep angle */
     sac = s/sqrt(pow(xt + ct - cr/2 - ct/2, 2) + pow(s, 2));
 
-
     for (i = 0; i < r->n_mach; i++)
     {
       /* M is the mach number */
@@ -303,7 +312,7 @@ int profile_fins(rocket_t *r)
 
       /* formula 3-6 */
       f->C_N_alpha_1[i] = 2 * M_PI * f->AR * 
-	(f->Af/r->Ar) / (2 + sqrt(4 + pow(beta*f->AR/sac, 2) ));
+        (f->Af/r->Ar) / (2 + sqrt(4 + pow(beta*f->AR/sac, 2) ));
     }
 
     /* formula 3-35 */
@@ -314,7 +323,7 @@ int profile_fins(rocket_t *r)
     /* formula 3-51 */
     f->C_l_p_m = -(f->N * cr * s / (6*pow(r->Lr, 2)))*
       ((1+3*lambda)*pow(s, 2) + 4*(1+2*lambda)*s*rt + 6*(1+lambda)*pow(rt, 2));
-      /* * f->C_N_alpha_1;*/
+    /* * f->C_N_alpha_1;*/
 
     tau = (s + rt)/rt;
     tau2 = pow(tau, 2);
@@ -322,7 +331,7 @@ int profile_fins(rocket_t *r)
 
     /* formula 3-96 */
     f->Ktb_alpha = 2*((1 + pow(tau, -4))*(0.5*atan(0.5*(tau-1/tau))) - 
-		      pow(tau, -2)*((tau-1/tau) + 2*atan(1/tau)))/
+                      pow(tau, -2)*((tau-1/tau) + 2*atan(1/tau)))/
       (M_PI * pow(1-1/tau, 2));
     
     /*formula 3-98 */
@@ -350,7 +359,7 @@ int profile_fins(rocket_t *r)
     f->C_l_p_tb_m     = f->C_l_p_m * f->Krb;
 
     printf("Aerodynamic properties of the fin set number %d\n"
-	   "-----------------------------------------------\n", n+1);
+           "-----------------------------------------------\n", n+1);
     printf("Fin area (Af)      = % f m2\n", f->Af);
     printf("Aspect ratio (AR)  = % f\n", f->AR);
     printf("\n");
@@ -372,7 +381,7 @@ int profile_fins(rocket_t *r)
     for (i = 0; i < r->n_mach; i++)
     {
       printf("M = % .2f -> C_N_alpha_1 = % .4f\n", 
-	     r->mach[i], f->C_N_alpha_1[i]);
+             r->mach[i], f->C_N_alpha_1[i]);
     }
 
     printf("C_l_delta_m    = % f\n", f->C_l_delta_m);
@@ -411,63 +420,71 @@ int profile_body(rocket_t *r)
     switch (part->type)
     {
 
-    case OGIVE_NOSE:
-      fn = part->l / part->d;
+      case OGIVE_NOSE:
+          fn = part->l / part->d;
+
+          part->A = 0;
+          part->V = 0;
+          part->Xof = 0;
+          part->Xcg = 0.466 * part->l;
+          part->Ix = 0;
+          part->Iy = 0;
       
-      break;
+          break;
 
-    case ELLIPTIC_NOSE:
+      case ELLIPTIC_NOSE:
 
-      break;
+          
+          break;
 
-    case CONIC_NOSE:
-      part->A = M_PI * part->d * sqrt(pow(part->d/2, 2) + pow(part->l, 2)) / 2;
-      part->V = M_PI * pow(part->d/2, 2) * part->l / 3;
+      case CONIC_NOSE:
+          part->A = M_PI * part->d *
+            sqrt(pow(part->d/2, 2) + pow(part->l, 2)) / 2;
 
-      part->Xof = 0;
-      part->Xcg = 2 * part->l / 3;
+          part->V = M_PI * pow(part->d/2, 2) * part->l / 3;
 
-      part->Ix = part->m * pow(part->d, 2) / 8;
-      /* moment of inertia about the axis passing at the tip of the cone */
-      part->Iy = part->m * (pow(part->d, 2)/16 + pow(part->l, 2)/2);
-      break;
+          part->Xof = 0;
+          part->Xcg = 2 * part->l / 3;
 
-    case PARABOLIC_NOSE:
+          part->Ix = part->m * pow(part->d, 2) / 8;
+          /* moment of inertia about the axis passing at the tip of the cone */
+          part->Iy = part->m * (pow(part->d, 2)/16 + pow(part->l, 2)/2);
+          break;
 
-      break;
+      case PARABOLIC_NOSE:
 
-    case TUBE:
-      part->A = M_PI * part->d * part->l;
-      part->V = M_PI * pow(part->d, 2) * part->l / 4;
+          break;
 
-      if (previous_part == NULL)
-	return -1;
-      part->Xof = previous_part->Xof + previous_part->l;
-      part->Xcg = part->Xof + part->l / 2;
+      case TUBE:
+          part->A = M_PI * part->d * part->l;
+          part->V = M_PI * pow(part->d, 2) * part->l / 4;
 
-      part->Ix = part->m * pow(part->d, 2) / 4;
-      part->Iy = part->m * (pow(part->d, 2)/8 + pow(part->l, 2)/12);
-      break;
+          if (previous_part == NULL)
+            return -1;
+          part->Xof = previous_part->Xof + previous_part->l;
+          part->Xcg = part->Xof + part->l / 2;
 
-    case TRANSITION:
-      dp = r->body.body_parts[n - 1].d;
+          part->Ix = part->m * pow(part->d, 2) / 4;
+          part->Iy = part->m * (pow(part->d, 2)/8 + pow(part->l, 2)/12);
+          break;
+
+      case TRANSITION:
+          dp = r->body.body_parts[n - 1].d;
       
-      part->A = M_PI*(part->d*sqrt(pow(part->d/2, 2) + 
-				   pow(part->l/(1 - part->d/dp), 2))/2 - 
-		      dp*sqrt(pow(dp/2, 2) + 
-			      pow(part->l*part->d/(dp*(1-part->d/dp)), 2))/2);
+          part->A = M_PI*(part->d*sqrt(pow(part->d/2, 2) + 
+                                       pow(part->l/(1 - part->d/dp), 2))/2 - 
+                          dp*sqrt(pow(dp/2, 2) + 
+                                  pow(part->l*part->d/(dp*(1-part->d/dp)), 2))/2);
 
-      part->V = M_PI * part->l * (pow(part->d/2, 2) - pow(dp/2, 2)*dp/part->d)/
-	(3*(1 - dp/part->d));
-      
+          part->V = M_PI * part->l *
+            (pow(part->d/2, 2) - pow(dp/2, 2)*dp/part->d)/(3*(1 - dp/part->d));
 
-      /*part->Ix = ;*/
+          /*part->Ix = ;*/
 
-
-      break;
-    default:
-      printf("Unknown type : %d\n", part->type);
-      break;
+          break;
+      default:
+          printf("Unknown type : %d\n", part->type);
+          break;
     }
   }
 
@@ -499,7 +516,7 @@ int profile_body(rocket_t *r)
 
   printf("\n");
   printf("Aerodynamic properties of the body.\n"
-	 "-----------------------------------\n");
+         "-----------------------------------\n");
   printf("Ab           = % f\n", r->body.Ab);
   printf("lo           = % f\n", r->body.lo);
   printf("C_N_alpha_b  = % f\n", r->body.C_N_alpha_b);
