@@ -59,14 +59,29 @@ typedef struct state
   
 } state_t;
 
-typedef struct rocket_properties
+typedef struct engine
 {
   float propellant_mass;
-  float thrust;
-  float Isp;
+  float dry_mass;
+  /*  float thrust; */
+  int n_point;
+  float *time;
+  float *thrust;
+
+  float c;
+  float mass_flow;
+
   float start_time;
   float burn_time;
   float drop_time;
+
+  float position[3];
+  float direction[3];
+
+} engine_t;
+
+typedef struct rocket_properties
+{
   float dry_mass;
   float Ix;
   float Iy;
@@ -78,6 +93,9 @@ typedef struct rocket_properties
   float Cmoment;
   float Cdamping;
   float Diameter;
+  float drop_time;
+  int n_engine;
+  engine_t *engines;
 } rocket_properties_t;
 
 typedef struct rocket
