@@ -332,8 +332,8 @@ int frozen_performance(equilibrium_t *e, exit_condition_t exit_type,
 }
 
 
-int equilibrium_performance(equilibrium_t *e, exit_condition_t exit_type,
-                            double value)
+int shifting_performance(equilibrium_t *e, exit_condition_t exit_type,
+                         double value)
 {
   short i;
   double sound_velocity = 0.0;
