@@ -409,13 +409,19 @@ int main(int argc, char *argv[])
       sscanf(buffer, "%s %s", variable, path);
       if (strcmp(variable, "thermo") == 0)
       {
+        printf("Thermo data file: %s\n", path);
         strncpy(thermo_file, path, FILENAME_MAX);
       }
       else if (strcmp(variable, "propellant") == 0)
       {
+        printf("Propellant data file: %s\n", path);
         strncpy(propellant_file, path, FILENAME_MAX);
       }
     }
+  }
+  else
+  {
+     printf("%s file not present, using default values.\n", CONF_FILE);
   }
   
   while (1)
