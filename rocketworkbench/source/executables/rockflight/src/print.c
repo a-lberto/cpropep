@@ -71,8 +71,8 @@ void print_summary(rocket_t *rocket, float *init_cond, solution_t *solution)
            (*rocket).stage_properties[i].Iy);
     printf("  |->Iz                     : %.2e kg\n",
            (*rocket).stage_properties[i].Iz);
-    printf("  |->Drop time              : %.2e s\n",
-           (*rocket).stage_properties[i].drop_time);
+    printf("  |->Active time            : %.2e s\n",
+           (*rocket).stage_properties[i].active_time);
 
 /*    printf("   Aerodynamic properties.\n"); */
     printf("  |->Drag coefficient       : %.2e\n",

@@ -50,7 +50,7 @@ Options rockflight_options[] = {
      {"Cmoment",             FLOAT,   "stage"},
      {"Cdamping",            FLOAT,   "stage"},
      {"Diameter",            FLOAT,   "stage"},
-     {"drop_time",           FLOAT,   "stage"},
+     {"active_time",         FLOAT,   "stage"},
 
      {"engine",              PARENT,  "stage"},
      {"type",                STRING,  "engine"},
@@ -251,8 +251,8 @@ int load_config(Data *data, rocket_t *rocket, float *init_cond,
                          if (GPCP_GetValue ("Diameter", val) != 0)
                               *val = 0.0;
 
-                         val = &(*rocket).stage_properties[i].drop_time;
-                         if (GPCP_GetValue ("drop_time", val) != 0)
+                         val = &(*rocket).stage_properties[i].active_time;
+                         if (GPCP_GetValue ("active_time", val) != 0)
                               *val = 0.0;
 
 			 m = GPCP_NumParent("engine");
