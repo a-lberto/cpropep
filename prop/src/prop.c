@@ -491,7 +491,7 @@ int main(int argc, char *argv[])
 
   char **arg;
   
-  char thermo_file[FILENAME_MAX] = "thermo.dat";
+  char thermo_file[FILENAME_MAX] = "../../data/thermo.dat";
 
   /* parse the command line */
   while (1)
