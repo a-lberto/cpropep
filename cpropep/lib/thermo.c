@@ -549,3 +549,15 @@ int propellant_search_by_formula(char *str)
 }
 
 
+/* Mass of propellant in gram */
+double propellant_mass(equilibrium_t *e)
+{
+  int i;
+  double mass = 0.0;
+  for (i = 0; i < e->propellant.ncomp; i++)
+  {
+    mass += e->propellant.coef[i] *
+      propellant_molar_mass(e->propellant.molecule[i]);
+  }
+  return mass;
+}

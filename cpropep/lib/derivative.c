@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "libnum.h"
+#include "num.h"
 
 #include "derivative.h"
 #include "equilibrium.h"
