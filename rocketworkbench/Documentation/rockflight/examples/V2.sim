@@ -1,0 +1,55 @@
+
+simulation = 
+  (initial_conditions = (u         = 0.0,
+			 v         = 0.0,
+			 w         = 0.0,
+			 P         = 0.0,
+			 Q         = 0.0,
+			 R         = 0.0,
+			 latitude  = 0.0,
+			 longitude = 0.0,
+			 altitude  = 0.0,
+			 phi       = 0.0,
+			 theta     = 0.0,
+			 psi       = 0.0
+			),
+   rocket = (stage = (dry_mass        = 1000, # (Head)
+	              Ix              = 0.0025,
+	              Iy              = 0.84,
+	              Iz              = 0.84,
+	              Cdrag           = 0.2,
+	              Clift           = 2.3,
+	              Cbeta           = 2.3,
+	              Cspin           = 20.0,
+	              Cmoment         = 6.32,
+	              Cdamping        = 31.6,
+	              Diameter        = 1.65,
+	              # this is the total duration during which the
+	              # stage is active, i.e. from the time the previous 
+	              # stage were drop until this stage is drop.
+	              active_time     = 1000.0,
+                      engine = (type            = "constant_thrust",
+	                        propellant_mass = 8935,
+				dry_mass        = 2965,
+	                        thrust          = 250000,
+	                        mass_flow       = 0.1,
+				start_time      = 0.0,
+				burn_time       = 65,
+				drop_time       = 0.0,
+				position        = (x = -1.0,
+                                                   y =  0.0,
+                                                   z =  0.0),
+                                direction       = (x =  1.0,
+                                                   y =  0.0,
+					           z =  0.0)
+			       )
+                     )
+              )
+  ,solution = (duration  = 100.0,
+               dt        = 0.1,
+               precision = 0.01)
+  )
+
+
+
+
