@@ -53,6 +53,12 @@ typedef struct _fin_t
   double C_l_delta_tb_m;
   double C_l_p_tb_m;
 
+  /* mass and inertial properties */
+  double m;
+  double Xcg;
+  double Ixx;
+  double Iyy;
+  
 } fin_t;
 
 typedef enum
