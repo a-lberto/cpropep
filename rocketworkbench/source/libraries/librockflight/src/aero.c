@@ -9,6 +9,7 @@
 #include "librockflight/include/state.h"
 
 #define EARTH_RAD    6.3567668e6
+#define AIR_GAS_CONSTANT 287.0
 
 /* Compute aerodynamic forces and moments */
 int aero(rocket_t *r, double *y, double *t)
@@ -69,6 +70,8 @@ int aero(rocket_t *r, double *y, double *t)
   
   V = sqrt(u*u + v*v + w*w);
 
+  s->mach = V / sqrt ( 1.4 * AIR_GAS_CONSTANT * air.T);
+  
   if (V == 0.0)
     return 0;
   
@@ -79,10 +82,10 @@ int aero(rocket_t *r, double *y, double *t)
 /*  S = S->D; */
 
   q = 0.5 * air.rho * V * V;
-
-  FD = - s->Cdrag * q * s->A;
-  FL = - s->Clift * q * s->A * alpha;
-  FB = - s->Cbeta * q * s->A * beta;
+    
+  FD = - s->Cd * q * s->A;
+  FL = - s->CL * q * s->A * alpha;
+  FB = - s->CB * q * s->A * beta;
 
   /*printf("FD = %f, FL = %f\n", FD, FL);*/
   

@@ -6,16 +6,19 @@
 #include "librockflight/include/state.h"
 #include "engine.h"
 
+int evaluate_function(function_t *f, state_t *s, double time, double *ans);
 
 /* Add engine component of force and moment */
 int engine(rocket_t *r, double *t)
 {
-  int i, j;
-  double tref = 0.0;
-  double trel;
+  int i;
+  float tref = 0.0;
+  float trel;
 
-  double thrust = 0.0;
-  double norm = 1.0;
+  float thrust = 0.0;
+  float norm = 1.0;
+
+  double tmp_val;
   
   state_t *s;
   engine_t *e = NULL;
@@ -37,39 +40,10 @@ int engine(rocket_t *r, double *t)
     
     if ((trel >= 0.0) && (*t < tref + e->drop_time))
     {
-      switch (e->thrust_type)
-      {
-        case _CONSTANT:
-            thrust += e->thrust[0];
-            
-            break;
-
-        case _FUNCTION:
-
-            if (trel < e->time[0])
-              thrust += (e->thrust[0]/e->time[0])*trel;
-            else
-            {
-              
-              for (j = 0; j < e->n_point; j++)
-              {
-                if (trel < e->time[j])
-                {
-                  thrust += e->thrust[j-1] +
-                    ((e->thrust[j] - e->thrust[j-1])/
-                     (e->time[j] - e->time[j-1])) * (trel - e->time[j-1]);
-                  break;
-                }
-              }
-              
-              /*thrust = 0.0;*/
-            }
-            
-            break;     
-      }   
+      evaluate_function(&(e->thrust), s, trel, &tmp_val);
+      thrust += (float)tmp_val; 
     }
   }
-  
  
   s->Feng[0] = thrust * e->direction[0] / norm;
   s->Feng[1] = thrust * e->direction[1] / norm;
@@ -81,3 +55,4 @@ int engine(rocket_t *r, double *t)
 
   return 0;
 }
+

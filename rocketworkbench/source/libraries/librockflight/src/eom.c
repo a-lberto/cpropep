@@ -13,8 +13,10 @@
 #include "stage.h"
 
 #define SEC(THETA) (1./cos(THETA))
+#define EARTH_RAD    6.3567668e6
 
 int set_state(rocket_t *rocket, double *y, double *time);
+int evaluate_function(function_t *f, state_t *s, double time, double *ans);
 
 int eom(int neq, double time, double *y, double *dy, void *data)
 {
@@ -119,6 +121,8 @@ int eom(int neq, double time, double *y, double *dy, void *data)
 int set_state(rocket_t *rocket, double *y, double *time)
 {
   state_t *s;
+  function_t *f;
+  
   /*double u      = y[0];*/  /* velocity component in x */
   /*double v      = y[1];*/  /* velocity component in y */
   /*double w      = y[2];*/  /* velocity component in z */ 
@@ -131,14 +135,9 @@ int set_state(rocket_t *rocket, double *y, double *time)
   double phi    = y[9];  /* euler angles */
   double theta  = y[10]; /* */
   double psi    = y[11]; /* */
-
+  
   s = &(rocket->state);
 
-  /* set the mass properties */
-  /* should be a function of time */
-
-  /*s->m = rocket->stage_properties[0].dry_mass;*/
-  
   /* transformation matrix (vector in vehicle carried reference to
      body reference */
   s->L_BV[0][0] =  cos(theta)*cos(psi);
@@ -175,6 +174,8 @@ int set_state(rocket_t *rocket, double *y, double *time)
   s->Cz = (s->L_BV[2][0]*Re*cos(lambda)*sin(lambda) +
            s->L_BV[2][2]*Re*cos(lambda)*cos(lambda)) * WE2;
 
+  s->alt = Re - EARTH_RAD; 
+  
   /* gravitational model */
   s->g = UGC*ME/(Re*Re);
 
@@ -182,6 +183,25 @@ int set_state(rocket_t *rocket, double *y, double *time)
   if (stage(rocket, time))
     return -1;
 
+  /* set the inertia of the rocket */
+  f = &(rocket->stage_properties[s->s].Ix);
+  evaluate_function(f, s, *time, &(s->Ix));
+  
+  f = &(rocket->stage_properties[s->s].Iy);
+  evaluate_function(f, s, *time, &(s->Iy));
+
+  f = &(rocket->stage_properties[s->s].Iz);
+  evaluate_function(f, s, *time, &(s->Iz));
+  
+  f = &(rocket->stage_properties[s->s].Cd);
+  evaluate_function(f, s, *time, &(s->Cd));
+
+  f = &(rocket->stage_properties[s->s].CL);
+  evaluate_function(f, s, *time, &(s->CL));
+
+  f = &(rocket->stage_properties[s->s].CB);
+  evaluate_function(f, s, *time, &(s->CB));
+  
   /* compute rocket mass */
   if (mass(rocket, time))
     return -1;

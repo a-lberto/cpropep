@@ -44,7 +44,7 @@ C             longitudinal variations) set SW(7),SW(8), SW(14),
 C             and SW(10) equal to 0.  To just remove tidal variations 
 C             set SW(7),SW(8), and SW(14) equal to 0.
       PARAMETER (MN1=5,MN2=14)
-      DIMENSION AP(1),W(2),WINDF(2),WW(2),SV(25)
+      DIMENSION AP(2),W(2),WINDF(2),WW(2),SV(25)
       DIMENSION WZL(2),WDZL(2)
       DIMENSION ZN1(MN1),UN1(MN1,2),UGN1(2,2)
       DIMENSION ZN2(MN2),UN2(MN2,2),UGN2(2,2)
@@ -227,8 +227,8 @@ C      Eq.
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5E(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
       REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
-      DIMENSION AP(1)
+      DIMENSION WB(2,15),WC(2,15),PB(200),PC(200),WW(2)
+      DIMENSION AP(2)
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
 C      COMMON/VPOLY/BT(20,20),BP(20,20),CSTL,SSTL,C2STL,S2STL,
@@ -749,8 +749,8 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5M(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
       REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
-      DIMENSION AP(1)
+      DIMENSION WB(2,15),WC(2,15),PB(200),PC(200),WW(2)
+      DIMENSION AP(2)
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
 C      COMMON/VPOLY/BT(20,20),BP(20,20),CSTL,SSTL,C2STL,S2STL,
@@ -1035,7 +1035,7 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5S(IYD,LAT,LONG,STL,PB,PC,WW)
       REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
+      DIMENSION WB(2,15),WC(2,15),PB(200),PC(200),WW(2)
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
       COMMON/VPOLY2/XVL,LVL,MVL,CLAT,SLAT,BT(20,20),BP(20,20)
@@ -2696,83 +2696,4 @@ C          UN2(14)
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 5.00000E+00/
-      END
-      
-*************************************************************************
-C      TEST DRIVER FOR GWS5 (HWM93 HORIZONTAL WIND MODEL)
-      DIMENSION W(2,20)
-      DIMENSION IDAY(20),UT(20),ALT(20),XLAT(20),XLONG(20),XLST(20),
-     $ F107A(20),F107(20),AP(20)    
-      COMMON/HWMC/WBT(2),WCT(2)
-      DATA IDAY/172,81,8*172,3*81.,7*182./
-      DATA UT/29000.,29000.,75000.,17*29000./
-      DATA ALT/400.,400.,400.,200.,6*400.,5*100.,80.,60.,40.,20.,0/
-      DATA XLAT/4*60.,0.,5*60.,4*45.,0,45.,45.,-45.,45.,45./
-      DATA XLONG/5*-70.,0.,4*-70.,5*0,90.,90.,0,-90.,-90./
-      DATA XLST/6*16.,4.,3*16.,0.,6.,9.,12.,0,5*0/
-      DATA F107A/7*150.,70.,150.,150.,10*150./
-      DATA F107/8*150.,180.,150.,10*150./
-      DATA AP/9*4.,40.,4.,40.,8*4./
-      DO 10 I=1,20
-         CALL GWS5(IDAY(I),UT(I),ALT(I),XLAT(I),XLONG(I),XLST(I),
-     $             F107A(I),F107(I),AP(I),W(1,I))
-         WRITE(6,100) W(1,I),WBT(1),WCT(1),W(2,I),WBT(2),WCT(2)
-   10 CONTINUE
-      WRITE(6,200) (IDAY(I),I=1,5)
-      WRITE(6,201) (UT(I),I=1,5)
-      WRITE(6,202) (ALT(I),I=1,5)
-      WRITE(6,203) (XLAT(I),I=1,5)
-      WRITE(6,204) (XLONG(I),I=1,5)
-      WRITE(6,205) (XLST(I),I=1,5)
-      WRITE(6,206) (F107A(I),I=1,5)
-      WRITE(6,207) (F107(I),I=1,5)
-      WRITE(6,210) (AP(I),I=1,5)
-      WRITE(6,208) (W(1,I),I=1,5)
-      WRITE(6,209) (W(2,I),I=1,5)
-      WRITE(6,200) (IDAY(I),I=6,10)
-      WRITE(6,201) (UT(I),I=6,10)
-      WRITE(6,202) (ALT(I),I=6,10)
-      WRITE(6,203) (XLAT(I),I=6,10)
-      WRITE(6,204) (XLONG(I),I=6,10)
-      WRITE(6,205) (XLST(I),I=6,10)
-      WRITE(6,206) (F107A(I),I=6,10)
-      WRITE(6,207) (F107(I),I=6,10)
-      WRITE(6,210) (AP(I),I=6,10)
-      WRITE(6,208) (W(1,I),I=6,10)
-      WRITE(6,209) (W(2,I),I=6,10)
-      WRITE(6,200) (IDAY(I),I=11,15)
-      WRITE(6,201) (UT(I),I=11,15)
-      WRITE(6,202) (ALT(I),I=11,15)
-      WRITE(6,203) (XLAT(I),I=11,15)
-      WRITE(6,204) (XLONG(I),I=11,15)
-      WRITE(6,205) (XLST(I),I=11,15)
-      WRITE(6,206) (F107A(I),I=11,15)
-      WRITE(6,207) (F107(I),I=11,15)
-      WRITE(6,210) (AP(I),I=11,15)
-      WRITE(6,208) (W(1,I),I=11,15)
-      WRITE(6,209) (W(2,I),I=11,15)
-      WRITE(6,200) (IDAY(I),I=16,20)
-      WRITE(6,201) (UT(I),I=16,20)
-      WRITE(6,202) (ALT(I),I=16,20)
-      WRITE(6,203) (XLAT(I),I=16,20)
-      WRITE(6,204) (XLONG(I),I=16,20)
-      WRITE(6,205) (XLST(I),I=16,20)
-      WRITE(6,206) (F107A(I),I=16,20)
-      WRITE(6,207) (F107(I),I=16,20)
-      WRITE(6,210) (AP(I),I=16,20)
-      WRITE(6,208) (W(1,I),I=16,20)
-      WRITE(6,209) (W(2,I),I=16,20)
-  100 FORMAT(1X,6F10.2)
-  200 FORMAT(//' DAY  ',5I12)
-  201 FORMAT(' UT   ',5F12.0)
-  202 FORMAT(' ALT  ',5F12.0)
-  203 FORMAT(' LAT  ',5F12.0)
-  204 FORMAT(' LONG ',5F12.0)
-  205 FORMAT(' LST  ',5F12.0)
-  206 FORMAT(' F107A',5F12.0)
-  207 FORMAT(' F107 ',5F12.0)
-  210 FORMAT(' AP   ',5F12.0)
-  208 FORMAT(/' MERID',5F12.2)
-  209 FORMAT(' ZONAL',5F12.2)
-      STOP
       END
