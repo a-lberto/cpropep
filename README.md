@@ -10,7 +10,7 @@ I am keeping this copy for personal research purposes. Contact me if you are the
 /* Copyright (C) 2000                                                  */
 /*    Antoine Lefebvre <antoine.lefebvre@polymtl.ca>                   */
 /*    Mark Pinese <pinese@cyberwizards.com.au>                         */
-/*                                                                     */
+/*    Geoff O'Callaghan <geoff@starbiz.com.au>                         */
 /* Licensed under the GPLv2                                            */
 ```
 
